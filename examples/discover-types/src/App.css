@@ -1,0 +1,70 @@
+td {
+  /* height: 6em; */
+}
+
+.stats-detail tr.stats-detail-row-data td {
+  border: 0
+}
+
+.stats-detail tr.stats-detail-row-graph td {
+  padding: 0
+}
+
+.bottom-bar-control {
+  display:inline-block;
+  margin-left: 1em;
+  padding-bottom: 0;
+}
+
+.bottom-bar-control:first-child {
+  margin-left: 0em;
+}
+
+.as-inline-block { display: inline-block !important; }
+#footer { padding: 0.5em 1em; background-color: #DDD; }
+
+#footer button { min-width: 8em; }
+
+.modal-overlay { padding: 1em; text-align: right; text-decoration: none }
+.modal-overlay:hover { padding: 1em; text-align: right; text-decoration: none }
+
+th.field { cursor: pointer; }
+
+html, body { height: 100%; }
+#react-mount { height: 100% }
+#react-root { height: 100% }
+
+#footer { position: fixed; left: 0; right: 0; bottom: 0; }
+
+table { width: 100% }
+
+
+#error-display-holder {
+  position: absolute;
+  top: 5em;
+  width: 100%;
+  display: none;
+}
+#error-display-holder.visible { display: block; }
+
+#error-display {
+  background-color: lightgrey;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  border: solid 1px darkgrey;
+  width: 90%;
+  max-width: 40em;
+}
+
+#error-display-holder.warning #error-display {
+  background-color: orange;
+}
+
+#error-display-holder.error #error-display {
+  background-color: red;
+  color: white;
+}
+
+#error-display-header { margin-bottom: 1em; }
+#error-display-header .title { display: inline-block; width: 85%; font-weight: bold }
+#error-display-header .closer { display: inline-block; width: 15%; text-align: right; cursor: pointer; }

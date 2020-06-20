@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./build.sh && cat ../test-data/burger-shop.csv | cargo run -- --stream in=- --code index.html --stream types=types.csv --param 'Full US Date'='^0*[0-9][0-2]?/[0-9]+/[0-9]{4}$' --param 'Full UK Date'='^[0-9]+/0*[0-9][0-2]?/[0-9]{4}$'

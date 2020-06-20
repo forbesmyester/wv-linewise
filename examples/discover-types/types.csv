@@ -1,0 +1,5 @@
+name,regexp
+Integer,^-?[0-9]+$
+NULL,^$
+String,.
+

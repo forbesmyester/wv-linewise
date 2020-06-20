@@ -1,0 +1,31 @@
+{
+  "name": "wv-linewise-js-lib",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forbesmyester/wv-linewise"
+  },
+  "homepage": "https://github.com/forbesmyester/wv-linewise/js-lib",
+  "description": "Libs for Web View Linewise",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "npx ts-node test/wv-linewise-buffer.ts",
+    "build": "npx tsc && npx rollup -c && npx typedoc --readme none"
+  },
+  "author": "Matt Forrester <github@speechmarks.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "typings": "./dist/main.d.ts",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^4.1.2",
+    "@types/tape": "^4.13.0",
+    "rollup": "^2.13.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tape": "^5.0.1",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "typedoc": "^0.17.7",
+    "typedoc-plugin-markdown": "^2.3.1",
+    "typescript": "^3.9.3"
+  }
+}

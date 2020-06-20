@@ -1,0 +1,54 @@
+<html>
+  <script src="https://unpkg.com/eventemitter3@latest/umd/eventemitter3.min.js"></script>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+
+  <script>
+
+  function disp(s) {
+    const el = document.createElement("div");
+    el.innerText = s
+    document.querySelector("body").appendChild(el);
+  }
+
+  function send(msg) {
+    disp("< " + msg);
+    external.invoke(msg);
+  }
+
+  function _globalWvLinewise(msg) {
+
+    disp("> " + JSON.stringify(msg));
+    if ((msg.name == "in") && (msg.type == "line")) {
+      send(JSON.stringify({"msg":"out", descriptor: 1, data: msg.data}));
+    }
+    if (msg.type == "paused") {
+      setTimeout(() => {
+        send(JSON.stringify({"msg":"streamContinue","name":msg.name}));
+      }, 1000);
+    }
+    if ((msg.type == "finished") && (msg.name == "in")) {
+      disp('SENDING \'{"msg":"exit", "status": 0}\' - in 10 seconds');
+      setTimeout(() => {
+        send('{"msg":"exit", "status": 0}');
+      }, 10000);
+    }
+
+  }
+
+  setInterval(() => {
+    document.querySelector("h1").innerText = new Date();
+  }, 1000);
+
+  setTimeout(() => {
+    send('{"msg":"params"}');
+    send('{"msg":"streamList"}');
+    setTimeout(() => {
+    send('{"msg":"streamStart","name":"in","count":5}');
+    send('{"msg":"streamStart","name":"cargo","count":5}');
+    }, 1000);
+  }, 100);
+
+  </script>
+</html>

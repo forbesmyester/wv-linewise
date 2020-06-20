@@ -1,0 +1,14 @@
+salesPerson,date,orderId,item,cost,price,profit
+Jack,8/6/2020,3,Burger,2.99,3,0.01
+Jack,8/6/2020,3,Chips,0.99,2,1.01
+Jim,,4,Cake,1.49,2,0.51
+Alice,12/6/2020,5,Fish,1.19,2,0.81
+Alice,12/6/2020,5,Chips,0.99,2,1.01
+Alice,13/6/2020,5,Mushy Peas,0.19,0.5,0.31
+Kate,13/6/2020,6,Cake,1.49,2,0.51
+"Sam ""The Dude"" Smith",14/6/2020,7,Ice Cream,0.79,1.5,0.71
+"Sam ""The Dude"" Smith",14/6/2020,8,Cake,1.49,2,0.51
+Kate,15/6/2020,9,Chocolate,0.3,0.6,0.3
+Kate,15/6/2020,9,Chips,0.49,2,1.51
+Kate,15/6/2020,9,Chips,0.39,2,1.61
+Kate,15/6/2020,10,Drink,0.1,1,0.9

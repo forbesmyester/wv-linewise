@@ -204,7 +204,7 @@ DiscoverTypes is an application for identifying the types of fields within a CSV
 
 ![What it looks like](./examples/discover-types/img/screenshot.png)
 
-### [Display Message](./examples/display-messages)
+### [Display Messages](./examples/display-messages)
 
 #### About
 

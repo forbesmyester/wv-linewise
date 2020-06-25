@@ -42,9 +42,9 @@ This program could be invoked like the following:
     echo 'Jane,27' >> stdin.csv
 
     cat stdin.csv | wv-linewise \
-        --code tables \
+        --code join_csvs.html \
         --stream this_is_stdin=- \
-        --stream lookups=lookups.tsv
+        --stream lookups=lookups.csv
         --param this_is_stdin='["Name"]' \
         --param lookups='["First Name"]' \
         --param request_count=2
@@ -185,6 +185,14 @@ const wvl: WvLinewise = new WvLinewise(new RawWvLinewise(external as any));
 processBuffer(wvl);
 ```
 
+## Installation
+
+Installation is possible with Rust v1.42.0 and later.
+
+[RustUp](https://rustup.rs/) is how I installed Rust.
+
+Once Rust is fully installed using `cargo install --path .` will compile and install the actual binary as wv_linewise.
+
 ## Example Applications
 
 ### [Discover Types](./examples/discover-types)
@@ -195,4 +203,19 @@ DiscoverTypes is an application for identifying the types of fields within a CSV
 #### Screenshot
 
 ![What it looks like](./examples/discover-types/img/screenshot.png)
+
+### [Display Message](./examples/display-messages)
+
+#### About
+
+This is a pure vanilla JS application I used to see develop WV Linewise, it's super basic and only:
+
+ * Outputs messages sent and received into the Web View.
+ * Lines that are are received by the Web View are assumed to be CSV data, converted to JSON with the stream name and line number added then sent to STDOUT.
+
+If you want to see how the interact with the original lightweight API this is probably the best place to start.
+
+#### Screenshot
+
+![What it looks like](./examples/display-messages/img/screenshot.png)
 

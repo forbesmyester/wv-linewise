@@ -1,54 +1,135 @@
 <html>
-  <script src="https://unpkg.com/eventemitter3@latest/umd/eventemitter3.min.js"></script>
+  <script src="https://d3js.org/d3.v5.js"></script>
   <body>
     <h1>Hello, World!</h1>
   </body>
 
   <script>
 
+  let headers = new Map();
+  let lineNumbers = new Map();
+  let running = new Set();
+
+
+  // Display a message so ther user can see it
   function disp(s) {
     const el = document.createElement("div");
     el.innerText = s
     document.querySelector("body").appendChild(el);
   }
 
+  // Send a message from the Web-View to WV Linewise
   function send(msg) {
-    disp("< " + msg);
-    external.invoke(msg);
+    let j = JSON.stringify(msg)
+    disp("< " + j);
+    external.invoke(j);
   }
 
+
+  // Seperate a CSV row into an array.
+  function csvRowToAr(csvRow) {
+    return d3.csvParseRows(csvRow)[0];
+  }
+
+  // Once we have an array of data fields from a line of CSV data we can use
+  // the headers to convert that to an object.
+  function convertToJson(streamName, csvRow) {
+    if (!headers.has(streamName)) {
+      throw new Error("Have no record of " + streamName);
+    }
+    return headers.get(streamName).reduce(
+      (acc, k, i) => {
+        return { ...acc, [k]: csvRow[i] };
+      },
+      {}
+    );
+
+  }
+
+  // This is where messages from WV Linewise are received in the Web View.
   function _globalWvLinewise(msg) {
 
     disp("> " + JSON.stringify(msg));
-    if ((msg.name == "in") && (msg.type == "line")) {
-      send(JSON.stringify({"msg":"out", descriptor: 1, data: msg.data}));
+
+    // A line is a line of data from a file / STDIN which has been read by read
+    // by WV Linewise
+    if (msg.type == "line") {
+
+      // If we have not sent headers for this stream yet, send them and record
+      // the line number.
+      if (!headers.has(msg.name)) {
+        headers.set(msg.name, csvRowToAr(msg.data));
+        lineNumbers.set(msg.name, 0);
+        return;
+      }
+
+      // Decorate the data received with the stream name and the row number.
+      lineNumbers.set(msg.name, lineNumbers.get(msg.name) + 1);
+      const j = Object.assign(
+        {
+          "Stream Name": msg.name,
+          "Line Number": lineNumbers.get(msg.name),
+        },
+        convertToJson(msg.name, csvRowToAr(msg.data))
+      );
+
+      // Send it to STDOUT.
+      send({
+        msg: "out",
+        descriptor: 1,
+        data: JSON.stringify(j)
+      });
     }
+
+    // If there is a parameter "request_count" then use that as the amount of
+    // lines to request.
+    if (msg.type == "params") {
+      msg.params.filter(({ name }) => name == "request_count").forEach(({ value }) => {
+        requestCount = parseInt(value, 10);
+      });
+      send({"msg":"streamList"});
+    }
+
+    // Start all streams that don't include the word "in".
+    if (msg.type == "streamList") {
+      msg.streams.forEach((strm) => {
+        send({ msg: "streamStart", name: strm, count: requestCount });
+        running.add(strm);
+      });
+    }
+
+    // All data from WV Linewise is processed immediately (with no promises or
+    // callbacks) so as soon as a stream pauses, start it right back up again.
     if (msg.type == "paused") {
       setTimeout(() => {
-        send(JSON.stringify({"msg":"streamContinue","name":msg.name}));
+        send({"msg":"streamContinue","name":msg.name});
       }, 1000);
     }
-    if ((msg.type == "finished") && (msg.name == "in")) {
-      disp('SENDING \'{"msg":"exit", "status": 0}\' - in 10 seconds');
-      setTimeout(() => {
-        send('{"msg":"exit", "status": 0}');
-      }, 10000);
+
+    // If we have anythink we haven't started, start it... But if we don't have
+    // anything we haven't started then exit.
+    //
+    // We start "lookups" on launch and put "in" into otherStreams, so when
+    // "lookups" finishes, we start "in" and then when "in" finishes we exit.
+    if (msg.type == "finished") {
+      running.delete(msg.name);
+      if (running.size == 0) {
+        disp('SENDING \'{"msg":"exit", "status": 0}\' - in 10 seconds');
+        setTimeout(() => {
+          send({"msg":"exit", "status": 0});
+        }, 10000);
+      }
     }
 
   }
+
+  window.onerror = (e) => disp(e && e.msg || e);
 
   setInterval(() => {
     document.querySelector("h1").innerText = new Date();
   }, 1000);
 
-  setTimeout(() => {
-    send('{"msg":"params"}');
-    send('{"msg":"streamList"}');
-    setTimeout(() => {
-    send('{"msg":"streamStart","name":"in","count":5}');
-    send('{"msg":"streamStart","name":"cargo","count":5}');
-    }, 1000);
-  }, 100);
+  send({"msg":"params"});
 
   </script>
 </html>

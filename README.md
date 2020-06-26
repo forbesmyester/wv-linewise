@@ -191,6 +191,8 @@ Installation is possible with Rust v1.42.0 and later.
 
 [RustUp](https://rustup.rs/) is how I installed Rust.
 
+In Linux Boscop/Web-view [introduces a dependency on Webkit2gtk](https://github.com/Boscop/web-view#prerequisites). At least on Ubuntu this is easy to meet via `sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.0-37`.
+
 Once Rust is fully installed using `cargo install --path .` will compile and install the actual binary as wv_linewise.
 
 ## Example Applications

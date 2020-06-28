@@ -1,5 +1,7 @@
 # WV Linewise
 
+![Rust](https://github.com/forbesmyester/wv-linewise/workflows/Rust/badge.svg)
+
 ## The Potential User
 
 You have some experience of the command line or writing small pieces of software. You may also be a professional software developer, but you may not be.

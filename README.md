@@ -2,17 +2,13 @@
 
 ## The Potential User
 
-You're a software developer and UNIX system administrator.
+You have some experience of the command line or writing small pieces of software. You may also be a professional software developer, but you may not be.
 
-You loooove the command line.
+You have learnt a little bit about the command line. You can do a `cat somefile.csv | grep 'Something Interesting' | sort > result.csv` and can see how sometimes, it's better to to do this than write code.
 
-You have probably looked at GNU Plot because it could draw graphs on the terminal but feel it's output isn't suitable for you.
+Sometimes you write code you're really proud of. But sometimes it's only about getting data from A to B, maybe a one off or something that has to work but doesn't have to be pretty. You wonder if `cat BLAH BLAH | SOMETHING | X | Y | Z` might have worked, it certainly would have been faster and easier if only you could add some interactivity to `X`.
 
-Also you write your SQL in VIM and have it integrated with TMUX to send your query to `psql` you get mildly annoyed because of the lack of horizontal scrolling.
-
-Maybe you use i3...
-
-You write software for a living, sometimes you write great code. Your code is sometimes deployed into big integrated projects but sometimes it's only about getting data from A to B, a one off and while it works, you wonder if `BLAH BLAH | SOMETHING | X | jq BLAH | Y | Z` might have worked, and may have been faster if only you could add some interactivity to X.
+You can write some HTML/CSS/JS and can make something interactive relatively easily, but your data which was previously happy stored in a CSV (for example) is no longer very easy to access. It seems that once you do HTML/CSS/JS you need to think about databases, port numbers, CORS and getting data out of your CSV is longer simple... HTML/CSS/JS is an all or nothing thing, you have to jump all in, sometimes it's just not worth it.
 
 You need one foot in both worlds... how...
 

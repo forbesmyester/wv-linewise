@@ -10,13 +10,63 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
 
-    runs-on: ubuntu-latest
-
+  unix_like:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Libs
-      run: sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.0-37
+      run:  sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.0-37 || true
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --verbose --release
+    - name: Release
+      id: release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: "Release ${{ github.ref }}: ${{ matrix.os }}"
+        draft: true
+        prerelease: true
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: target/release/wv_linewise
+        asset_name: wv-linewise-${{ matrix.os }}
+        asset_content_type: application/x-executable
+
+
+  windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: cargo build --verbose --release
+    - name: Release
+      id: release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: "Release ${{ github.ref }}: windows-latest: MSHTML"
+        draft: true
+        prerelease: true
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: target/release/wv_linewise.exe
+        asset_name: wv-linewise-mshtml.exe
+        asset_content_type: application/x-executable

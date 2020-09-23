@@ -1,11 +1,11 @@
 {
   "name": "wv-linewise-js-lib",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/forbesmyester/wv-linewise"
   },
-  "homepage": "https://github.com/forbesmyester/wv-linewise/js-lib",
+  "homepage": "https://github.com/forbesmyester/wv-linewise/tree/master/js-lib",
   "description": "Libs for Web View Linewise",
   "main": "dist/main.js",
   "scripts": {

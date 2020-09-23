@@ -185,7 +185,15 @@ processBuffer(wvl);
 
 ## Installation
 
-Installation is possible with Rust v1.42.0 and later.
+### Binaries
+
+Binaries are available in [Releases](https://github.com/forbesmyester/wv-linewise/releases) for Windows, MacOS (I have no Mac to test) and Ubuntu x86 (which will run on at least some other x86 Linux).
+
+They should be big self contained binaries that run without dependencies.
+
+### Compilation
+
+Installation is possible and easy with Rust v1.42.0 and later.
 
 [RustUp](https://rustup.rs/) is how I installed Rust.
 

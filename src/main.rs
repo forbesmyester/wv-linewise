@@ -435,7 +435,7 @@ fn stream(filename: String, pause_at: u64) -> StartedCommChannel {
 
 fn get_opts() -> Opts {
 
-    let matches = ClapApp::new("pipowser")
+    let matches = ClapApp::new("wv-linewise")
         .version("0.0.0")
         .author("Matthew Forrester")
         .about("Puts the power of the  browser into pipes.")
@@ -446,7 +446,7 @@ fn get_opts() -> Opts {
             .short("c")
             .long("code")
             .value_name("CODE")
-            .env("PIPOWSWER_CODE")
+            .env("WVLINEWISE_CODE")
         )
         .arg(ClapArg::with_name("stream")
             .help("The stream files to process. Use \"-\" for STDIN")

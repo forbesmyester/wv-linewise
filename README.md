@@ -227,3 +227,8 @@ If you want to see how the interact with the original lightweight API this is pr
 
 ![What it looks like](./examples/display-messages/img/screenshot.png)
 
+
+## Releases
+
+ * v0.1.1 - Fix branding and examples/discover-types not outputting to STDOUT on continuous-and-exit
+ * v0.1.0 - Initial Release

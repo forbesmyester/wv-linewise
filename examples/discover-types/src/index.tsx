@@ -279,7 +279,7 @@ async function run(wvLinewise: WvLinewise) {
       cont = isContinuous(state.continuousMode) && (!state.finished);
     }
     if ((state.continuousMode === MODE.CONTINUOUS_AND_EXIT) && (state.finished)) {
-      wvLinewise.exit(0)
+      state.events.exit();
     }
   };
 

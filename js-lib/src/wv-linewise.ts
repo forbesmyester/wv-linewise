@@ -299,7 +299,7 @@ export class RawWvLinewiseMock extends RawWvLinewise {
         this.params.push({ name, value });
     }
 
-    async start(name: string, count: number) {
+    start(name: string, count: number) {
         this.startedCounts.set(name, count);
         this.running.add(name);
         if (!this.started.has(name)) {
@@ -336,13 +336,13 @@ export class RawWvLinewiseMock extends RawWvLinewise {
                 break;
             case REQUEST_TYPE.OUT:
                 if (j.descriptor == 2) {
-                    console.log("STDERR: ", j.data);
+                    console.log(`STDERR: ${j.data}`);
                 }
                 if (j.descriptor == 1) {
-                    console.log("STDOUT: ", j.data);
+                    console.log(`STDOUT: ${j.data}`);
                 }
                 if ((j.descriptor > 2) && (j.descriptor < 10)) {
-                    console.log(`STD${j.descriptor}: `, j.data);
+                    console.log(`STD${j.descriptor}: ${j.data}`);
                 }
                 break;
             case REQUEST_TYPE.STREAM_START:

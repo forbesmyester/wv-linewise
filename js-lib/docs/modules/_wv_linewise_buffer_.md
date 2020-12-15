@@ -15,6 +15,7 @@
 ### Functions
 
 * [onlyOnce](_wv_linewise_buffer_.md#onlyonce)
+* [sleep](_wv_linewise_buffer_.md#sleep)
 
 ## Functions
 
@@ -22,7 +23,7 @@
 
 ▸ **onlyOnce**(`f`: Function): *onlyOnceImp*
 
-Defined in wv-linewise-buffer.ts:3
+*Defined in [wv-linewise-buffer.ts:3](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L3)*
 
 **Parameters:**
 
@@ -31,3 +32,13 @@ Name | Type |
 `f` | Function |
 
 **Returns:** *onlyOnceImp*
+
+___
+
+###  sleep
+
+▸ **sleep**(): *Promise‹null›*
+
+*Defined in [wv-linewise-buffer.ts:19](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L19)*
+
+**Returns:** *Promise‹null›*

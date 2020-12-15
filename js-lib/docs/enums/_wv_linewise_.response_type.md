@@ -23,7 +23,7 @@ Every [Response](../modules/_wv_linewise_.md#response) includes a `type` which w
 
 • **DETAILS**: = "details"
 
-Defined in wv-linewise.ts:100
+*Defined in [wv-linewise.ts:101](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L101)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **ERROR**: = "error"
 
-Defined in wv-linewise.ts:103
+*Defined in [wv-linewise.ts:104](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L104)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **FINISHED**: = "finished"
 
-Defined in wv-linewise.ts:101
+*Defined in [wv-linewise.ts:102](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L102)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **LINE**: = "line"
 
-Defined in wv-linewise.ts:98
+*Defined in [wv-linewise.ts:99](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L99)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **MESSAGE_ERROR**: = "messageError"
 
-Defined in wv-linewise.ts:104
+*Defined in [wv-linewise.ts:105](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L105)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • **PARAMS**: = "params"
 
-Defined in wv-linewise.ts:97
+*Defined in [wv-linewise.ts:98](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L98)*
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 • **PAUSED**: = "paused"
 
-Defined in wv-linewise.ts:102
+*Defined in [wv-linewise.ts:103](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L103)*
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 • **STREAM_LIST**: = "streamList"
 
-Defined in wv-linewise.ts:99
+*Defined in [wv-linewise.ts:100](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L100)*

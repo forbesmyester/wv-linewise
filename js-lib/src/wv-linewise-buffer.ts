@@ -16,10 +16,21 @@ enum WvLinewiseBufferState {
     End = 3,
 }
 
+function sleep(): Promise<null> {
+    return new Promise((resolve) => {
+        setTimeout(
+            () => {
+                resolve(null);
+            }, 1
+        );
+    });
+}
+
 export class WvLinewiseBuffer {
 
     private buffer: string[] = [];
     private state: WvLinewiseBufferState = WvLinewiseBufferState.NotStarted;
+    protected noSleep = false;
 
     constructor(private wvl: WvLinewise, private streamName: string, private lowWaterMark: number, private countToRequest: number) {
         this.state = 0; // 1 = running, 2 = requesting, 3 = end
@@ -45,7 +56,7 @@ export class WvLinewiseBuffer {
 
             let onlyOnceResolve = onlyOnce(resolve);
 
-            let eventNotification = ({ name, type }: PausedResponse | LineResponse | FinishedResponse) => {
+            let eventNotification = async ({ name, type }: PausedResponse | LineResponse | FinishedResponse) => {
 
                 if (name !== this.streamName) {
                     return;
@@ -54,6 +65,9 @@ export class WvLinewiseBuffer {
                 if (type == RESPONSE_TYPE.FINISHED) { this.state = 3; }
                 if (type == RESPONSE_TYPE.PAUSED) {
                     this.state = 1;
+                    if (!this.noSleep) {
+                        await sleep();
+                    }
                     return this.request();
                 }
 
@@ -99,9 +113,8 @@ export class WvLinewiseBuffer {
         }
         if (this.buffer.length == 0) {
             if (this.state == 2) {
-                return this.notify().then(() => {
-                    return now();
-                });
+                await this.notify();
+                return now();
             }
             return Promise.resolve(null);
         }

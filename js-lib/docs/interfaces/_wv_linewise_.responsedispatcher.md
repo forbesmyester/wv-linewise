@@ -14,7 +14,7 @@
 
 ▸ (`evt`: Response): *void*
 
-Defined in wv-linewise.ts:193
+*Defined in [wv-linewise.ts:194](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L194)*
 
 **Parameters:**
 

@@ -21,7 +21,7 @@ A list of streams, in response to a [StreamListRequest](_wv_linewise_.streamlist
 
 • **streams**: *string[]*
 
-Defined in wv-linewise.ts:128
+*Defined in [wv-linewise.ts:129](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L129)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **type**: *[STREAM_LIST](../enums/_wv_linewise_.response_type.md#stream_list)*
 
-Defined in wv-linewise.ts:127
+*Defined in [wv-linewise.ts:128](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L128)*

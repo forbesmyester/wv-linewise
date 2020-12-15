@@ -24,7 +24,7 @@ further down the pipeline.
 
 • **data**: *string*
 
-Defined in wv-linewise.ts:85
+*Defined in [wv-linewise.ts:86](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L86)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **descriptor**: *[OUT_REQUEST_DESCRIPTOR](../enums/_wv_linewise_.out_request_descriptor.md)*
 
-Defined in wv-linewise.ts:84
+*Defined in [wv-linewise.ts:85](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L85)*
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 • **msg**: *[OUT](../enums/_wv_linewise_.request_type.md#out)*
 
-Defined in wv-linewise.ts:83
+*Defined in [wv-linewise.ts:84](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L84)*

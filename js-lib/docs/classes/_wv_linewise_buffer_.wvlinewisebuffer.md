@@ -17,6 +17,7 @@
 * [buffer](_wv_linewise_buffer_.wvlinewisebuffer.md#private-buffer)
 * [countToRequest](_wv_linewise_buffer_.wvlinewisebuffer.md#private-counttorequest)
 * [lowWaterMark](_wv_linewise_buffer_.wvlinewisebuffer.md#private-lowwatermark)
+* [noSleep](_wv_linewise_buffer_.wvlinewisebuffer.md#protected-nosleep)
 * [state](_wv_linewise_buffer_.wvlinewisebuffer.md#private-state)
 * [streamName](_wv_linewise_buffer_.wvlinewisebuffer.md#private-streamname)
 * [wvl](_wv_linewise_buffer_.wvlinewisebuffer.md#private-wvl)
@@ -33,7 +34,7 @@
 
 \+ **new WvLinewiseBuffer**(`wvl`: [WvLinewise](_wv_linewise_.wvlinewise.md), `streamName`: string, `lowWaterMark`: number, `countToRequest`: number): *[WvLinewiseBuffer](_wv_linewise_buffer_.wvlinewisebuffer.md)*
 
-Defined in wv-linewise-buffer.ts:22
+*Defined in [wv-linewise-buffer.ts:33](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L33)*
 
 **Parameters:**
 
@@ -52,7 +53,7 @@ Name | Type |
 
 • **buffer**: *string[]* = []
 
-Defined in wv-linewise-buffer.ts:21
+*Defined in [wv-linewise-buffer.ts:31](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L31)*
 
 ___
 
@@ -60,7 +61,7 @@ ___
 
 • **countToRequest**: *number*
 
-Defined in wv-linewise-buffer.ts:24
+*Defined in [wv-linewise-buffer.ts:35](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L35)*
 
 ___
 
@@ -68,7 +69,15 @@ ___
 
 • **lowWaterMark**: *number*
 
-Defined in wv-linewise-buffer.ts:24
+*Defined in [wv-linewise-buffer.ts:35](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L35)*
+
+___
+
+### `Protected` noSleep
+
+• **noSleep**: *boolean* = false
+
+*Defined in [wv-linewise-buffer.ts:33](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L33)*
 
 ___
 
@@ -76,7 +85,7 @@ ___
 
 • **state**: *[WvLinewiseBufferState](../enums/_wv_linewise_buffer_.wvlinewisebufferstate.md)* = WvLinewiseBufferState.NotStarted
 
-Defined in wv-linewise-buffer.ts:22
+*Defined in [wv-linewise-buffer.ts:32](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L32)*
 
 ___
 
@@ -84,7 +93,7 @@ ___
 
 • **streamName**: *string*
 
-Defined in wv-linewise-buffer.ts:24
+*Defined in [wv-linewise-buffer.ts:35](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L35)*
 
 ___
 
@@ -92,7 +101,7 @@ ___
 
 • **wvl**: *[WvLinewise](_wv_linewise_.wvlinewise.md)*
 
-Defined in wv-linewise-buffer.ts:24
+*Defined in [wv-linewise-buffer.ts:35](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L35)*
 
 ## Methods
 
@@ -100,7 +109,7 @@ Defined in wv-linewise-buffer.ts:24
 
 ▸ **notify**(): *Promise‹unknown›*
 
-Defined in wv-linewise-buffer.ts:42
+*Defined in [wv-linewise-buffer.ts:53](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L53)*
 
 **Returns:** *Promise‹unknown›*
 
@@ -110,7 +119,7 @@ ___
 
 ▸ **request**(): *void*
 
-Defined in wv-linewise-buffer.ts:73
+*Defined in [wv-linewise-buffer.ts:88](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L88)*
 
 **Returns:** *void*
 
@@ -120,6 +129,6 @@ ___
 
 ▸ **shift**(): *Promise‹string | null›*
 
-Defined in wv-linewise-buffer.ts:89
+*Defined in [wv-linewise-buffer.ts:104](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L104)*
 
 **Returns:** *Promise‹string | null›*

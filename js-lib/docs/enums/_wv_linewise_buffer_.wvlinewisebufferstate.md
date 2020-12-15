@@ -17,7 +17,7 @@
 
 • **End**: = 3
 
-Defined in wv-linewise-buffer.ts:16
+*Defined in [wv-linewise-buffer.ts:16](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L16)*
 
 ___
 
@@ -25,7 +25,7 @@ ___
 
 • **NotStarted**: = 0
 
-Defined in wv-linewise-buffer.ts:13
+*Defined in [wv-linewise-buffer.ts:13](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L13)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • **Requesting**: = 2
 
-Defined in wv-linewise-buffer.ts:15
+*Defined in [wv-linewise-buffer.ts:15](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L15)*
 
 ___
 
@@ -41,4 +41,4 @@ ___
 
 • **Running**: = 1
 
-Defined in wv-linewise-buffer.ts:14
+*Defined in [wv-linewise-buffer.ts:14](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L14)*

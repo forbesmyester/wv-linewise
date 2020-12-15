@@ -23,7 +23,7 @@ to a specific stream, or a request to a non-existing stream.
 
 • **error**: *string*
 
-Defined in wv-linewise.ts:189
+*Defined in [wv-linewise.ts:190](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L190)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **name**: *string*
 
-Defined in wv-linewise.ts:190
+*Defined in [wv-linewise.ts:191](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L191)*
 
 ___
 
@@ -39,4 +39,4 @@ ___
 
 • **type**: *[ERROR](../enums/_wv_linewise_.response_type.md#error)*
 
-Defined in wv-linewise.ts:188
+*Defined in [wv-linewise.ts:189](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L189)*

@@ -197,7 +197,7 @@ export declare class RawWvLinewiseMock extends RawWvLinewise {
     constructor();
     addStreamData(streamName: LineResponse["name"], data: LineResponse["data"][]): void;
     addParam(name: Param["name"], value: Param["value"]): void;
-    start(name: string, count: number): Promise<void>;
+    start(name: string, count: number): void;
     request(j: Request): Promise<void>;
 }
 export declare class WvLinewise {

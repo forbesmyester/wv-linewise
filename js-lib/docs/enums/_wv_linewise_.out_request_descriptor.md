@@ -24,7 +24,7 @@ Used by [OutRequest](../interfaces/_wv_linewise_.outrequest.md) to control which
 
 • **DESCRIPTOR_3**: = 3
 
-Defined in wv-linewise.ts:68
+*Defined in [wv-linewise.ts:69](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L69)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **DESCRIPTOR_4**: = 4
 
-Defined in wv-linewise.ts:69
+*Defined in [wv-linewise.ts:70](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L70)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **DESCRIPTOR_5**: = 5
 
-Defined in wv-linewise.ts:70
+*Defined in [wv-linewise.ts:71](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L71)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **DESCRIPTOR_6**: = 6
 
-Defined in wv-linewise.ts:71
+*Defined in [wv-linewise.ts:72](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L72)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **DESCRIPTOR_7**: = 7
 
-Defined in wv-linewise.ts:72
+*Defined in [wv-linewise.ts:73](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L73)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **DESCRIPTOR_8**: = 8
 
-Defined in wv-linewise.ts:73
+*Defined in [wv-linewise.ts:74](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L74)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **DESCRIPTOR_9**: = 9
 
-Defined in wv-linewise.ts:74
+*Defined in [wv-linewise.ts:75](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L75)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **STDERR**: = 2
 
-Defined in wv-linewise.ts:67
+*Defined in [wv-linewise.ts:68](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L68)*
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 • **STDOUT**: = 1
 
-Defined in wv-linewise.ts:66
+*Defined in [wv-linewise.ts:67](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L67)*

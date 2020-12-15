@@ -21,7 +21,7 @@ This is a key/value pair which is embedded in a [ParamsResponse](_wv_linewise_.p
 
 • **name**: *string*
 
-Defined in wv-linewise.ts:111
+*Defined in [wv-linewise.ts:112](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L112)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **value**: *string*
 
-Defined in wv-linewise.ts:112
+*Defined in [wv-linewise.ts:113](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L113)*

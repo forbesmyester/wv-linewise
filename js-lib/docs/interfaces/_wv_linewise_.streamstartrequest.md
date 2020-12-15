@@ -22,7 +22,7 @@
 
 • **count**: *number*
 
-Defined in wv-linewise.ts:26
+*Defined in [wv-linewise.ts:27](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L27)*
 
 How many lines to read before the stream is [PausedResponse](_wv_linewise_.pausedresponse.md)
 
@@ -32,7 +32,7 @@ ___
 
 • **msg**: *[STREAM_START](../enums/_wv_linewise_.request_type.md#stream_start)*
 
-Defined in wv-linewise.ts:22
+*Defined in [wv-linewise.ts:23](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L23)*
 
 ___
 
@@ -40,6 +40,6 @@ ___
 
 • **name**: *string*
 
-Defined in wv-linewise.ts:24
+*Defined in [wv-linewise.ts:25](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L25)*
 
 The name of the stream to start

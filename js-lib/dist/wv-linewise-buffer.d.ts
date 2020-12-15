@@ -6,6 +6,7 @@ export declare class WvLinewiseBuffer {
     private countToRequest;
     private buffer;
     private state;
+    protected noSleep: boolean;
     constructor(wvl: WvLinewise, streamName: string, lowWaterMark: number, countToRequest: number);
     notify(): Promise<unknown>;
     request(): void;

@@ -26,7 +26,7 @@ In future streams from files will likely be rewindable, but currently
 
 • **name**: *string*
 
-Defined in wv-linewise.ts:160
+*Defined in [wv-linewise.ts:161](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L161)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **rewindable**: *boolean*
 
-Defined in wv-linewise.ts:161
+*Defined in [wv-linewise.ts:162](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L162)*
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 • **type**: *[DETAILS](../enums/_wv_linewise_.response_type.md#details)*
 
-Defined in wv-linewise.ts:159
+*Defined in [wv-linewise.ts:160](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L160)*

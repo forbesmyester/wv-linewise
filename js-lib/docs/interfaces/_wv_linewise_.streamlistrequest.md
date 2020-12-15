@@ -20,4 +20,4 @@
 
 • **msg**: *[STREAM_LIST](../enums/_wv_linewise_.request_type.md#stream_list)*
 
-Defined in wv-linewise.ts:42
+*Defined in [wv-linewise.ts:43](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L43)*

@@ -31,6 +31,11 @@
 * [StreamStartRequest](_main_.md#streamstartrequest)
 * [WvLinewise](_main_.md#wvlinewise)
 * [WvLinewiseBuffer](_main_.md#wvlinewisebuffer)
+* [WvLinewiseFetchCurrent](_main_.md#wvlinewisefetchcurrent)
+* [WvLinewiseRequest](_main_.md#wvlinewiserequest)
+* [WvLinewiseResponse](_main_.md#wvlinewiseresponse)
+* [getWvLinewiseFetch](_main_.md#getwvlinewisefetch)
+* [getWvLinewiseManagedFetch](_main_.md#getwvlinewisemanagedfetch)
 * [runningInWvLinewise](_main_.md#runninginwvlinewise)
 
 ## References
@@ -182,6 +187,36 @@ ___
 ###  WvLinewiseBuffer
 
 • **WvLinewiseBuffer**:
+
+___
+
+###  WvLinewiseFetchCurrent
+
+• **WvLinewiseFetchCurrent**:
+
+___
+
+###  WvLinewiseRequest
+
+• **WvLinewiseRequest**:
+
+___
+
+###  WvLinewiseResponse
+
+• **WvLinewiseResponse**:
+
+___
+
+###  getWvLinewiseFetch
+
+• **getWvLinewiseFetch**:
+
+___
+
+###  getWvLinewiseManagedFetch
+
+• **getWvLinewiseManagedFetch**:
 
 ___
 

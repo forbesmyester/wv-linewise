@@ -35,7 +35,7 @@
 
 \+ **new WvLinewise**(`raw`: [RawWvLinewise](_wv_linewise_.rawwvlinewise.md)): *[WvLinewise](_wv_linewise_.wvlinewise.md)*
 
-Defined in wv-linewise.ts:366
+*Defined in [wv-linewise.ts:367](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L367)*
 
 **Parameters:**
 
@@ -51,7 +51,7 @@ Name | Type |
 
 • **raw**: *[RawWvLinewise](_wv_linewise_.rawwvlinewise.md)*
 
-Defined in wv-linewise.ts:368
+*Defined in [wv-linewise.ts:369](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L369)*
 
 ## Methods
 
@@ -59,7 +59,7 @@ Defined in wv-linewise.ts:368
 
 ▸ **clear**‹**T**›(`type`: T["type"]): *void*
 
-Defined in wv-linewise.ts:403
+*Defined in [wv-linewise.ts:404](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L404)*
 
 **Type parameters:**
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **exit**(`status`: number): *void*
 
-Defined in wv-linewise.ts:383
+*Defined in [wv-linewise.ts:384](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L384)*
 
 **Parameters:**
 
@@ -95,7 +95,7 @@ ___
 
 ▸ **off**‹**T**›(`type`: T["type"], `f`: [ResponseDispatcher](../interfaces/_wv_linewise_.responsedispatcher.md)‹T›): *void*
 
-Defined in wv-linewise.ts:407
+*Defined in [wv-linewise.ts:408](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L408)*
 
 **Type parameters:**
 
@@ -116,7 +116,7 @@ ___
 
 ▸ **on**‹**T**›(`type`: T["type"], `f`: [ResponseDispatcher](../interfaces/_wv_linewise_.responsedispatcher.md)‹T›): *void*
 
-Defined in wv-linewise.ts:395
+*Defined in [wv-linewise.ts:396](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L396)*
 
 **Type parameters:**
 
@@ -137,7 +137,7 @@ ___
 
 ▸ **once**‹**T**›(`type`: T["type"], `f`: [ResponseDispatcher](../interfaces/_wv_linewise_.responsedispatcher.md)‹T›): *void*
 
-Defined in wv-linewise.ts:399
+*Defined in [wv-linewise.ts:400](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L400)*
 
 **Type parameters:**
 
@@ -158,7 +158,7 @@ ___
 
 ▸ **out**(`text`: string, `descriptor`: OutRequest["descriptor"]): *void*
 
-Defined in wv-linewise.ts:391
+*Defined in [wv-linewise.ts:392](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L392)*
 
 **Parameters:**
 
@@ -175,7 +175,7 @@ ___
 
 ▸ **requestParams**(): *void*
 
-Defined in wv-linewise.ts:379
+*Defined in [wv-linewise.ts:380](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L380)*
 
 **Returns:** *void*
 
@@ -185,7 +185,7 @@ ___
 
 ▸ **requestStreamList**(): *void*
 
-Defined in wv-linewise.ts:387
+*Defined in [wv-linewise.ts:388](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L388)*
 
 **Returns:** *void*
 
@@ -195,7 +195,7 @@ ___
 
 ▸ **streamContinue**(`streamName`: string): *void*
 
-Defined in wv-linewise.ts:375
+*Defined in [wv-linewise.ts:376](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L376)*
 
 **Parameters:**
 
@@ -211,7 +211,7 @@ ___
 
 ▸ **streamStart**(`streamName`: string, `count`: number): *void*
 
-Defined in wv-linewise.ts:371
+*Defined in [wv-linewise.ts:372](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L372)*
 
 **Parameters:**
 

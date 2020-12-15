@@ -134,33 +134,31 @@ class RawWvLinewiseMock extends RawWvLinewise {
         if (!this.streamData.has(streamName)) {
             this.streamData.set(streamName, []);
         }
-        this.streamData.set(streamName, data);
+        this.streamData.set(streamName, (this.streamData.get(streamName) || []).concat(data));
     }
     addParam(name, value) {
         this.params.push({ name, value });
     }
     start(name, count) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.startedCounts.set(name, count);
-            this.running.add(name);
-            if (!this.started.has(name)) {
-                this.fire({ name: name, rewindable: false, type: RESPONSE_TYPE.DETAILS });
-                this.started.add(name);
-            }
-            let stream = this.streamData.get(name) || [];
-            let lineNumber = 0;
-            while ((lineNumber++ < count) && stream.length) {
-                let line = stream.shift();
-                this.fire({ name: name, data: line, type: RESPONSE_TYPE.LINE });
-            }
-            this.running.delete(name);
-            if (stream.length) {
-                this.fire({ name: name, type: RESPONSE_TYPE.PAUSED });
-            }
-            else {
-                this.fire({ name: name, type: RESPONSE_TYPE.FINISHED });
-            }
-        });
+        this.startedCounts.set(name, count);
+        this.running.add(name);
+        if (!this.started.has(name)) {
+            this.fire({ name: name, rewindable: false, type: RESPONSE_TYPE.DETAILS });
+            this.started.add(name);
+        }
+        let stream = this.streamData.get(name) || [];
+        let lineNumber = 0;
+        while ((lineNumber++ < count) && stream.length) {
+            let line = stream.shift();
+            this.fire({ name: name, data: line, type: RESPONSE_TYPE.LINE });
+        }
+        this.running.delete(name);
+        if (stream.length) {
+            this.fire({ name: name, type: RESPONSE_TYPE.PAUSED });
+        }
+        else {
+            this.fire({ name: name, type: RESPONSE_TYPE.FINISHED });
+        }
     }
     request(j) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -179,13 +177,13 @@ class RawWvLinewiseMock extends RawWvLinewise {
                     break;
                 case REQUEST_TYPE.OUT:
                     if (j.descriptor == 2) {
-                        console.log("STDERR: ", j.data);
+                        console.log(`STDERR: ${j.data}`);
                     }
                     if (j.descriptor == 1) {
-                        console.log("STDOUT: ", j.data);
+                        console.log(`STDOUT: ${j.data}`);
                     }
                     if ((j.descriptor > 2) && (j.descriptor < 10)) {
-                        console.log(`STD${j.descriptor}: `, j.data);
+                        console.log(`STD${j.descriptor}: ${j.data}`);
                     }
                     break;
                 case REQUEST_TYPE.STREAM_START:

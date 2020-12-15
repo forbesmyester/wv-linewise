@@ -28,6 +28,13 @@ var WvLinewiseBufferState;
     WvLinewiseBufferState[WvLinewiseBufferState["Requesting"] = 2] = "Requesting";
     WvLinewiseBufferState[WvLinewiseBufferState["End"] = 3] = "End";
 })(WvLinewiseBufferState || (WvLinewiseBufferState = {}));
+function sleep() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(null);
+        }, 1);
+    });
+}
 class WvLinewiseBuffer {
     constructor(wvl, streamName, lowWaterMark, countToRequest) {
         this.wvl = wvl;
@@ -36,6 +43,7 @@ class WvLinewiseBuffer {
         this.countToRequest = countToRequest;
         this.buffer = [];
         this.state = WvLinewiseBufferState.NotStarted;
+        this.noSleep = false;
         this.state = 0; // 1 = running, 2 = requesting, 3 = end
         if (countToRequest == 0) {
             throw new Error("WvLinewiseBuffer: countToRequest must be a positive number");
@@ -55,7 +63,7 @@ class WvLinewiseBuffer {
     notify() {
         return new Promise((resolve) => {
             let onlyOnceResolve = onlyOnce(resolve);
-            let eventNotification = ({ name, type }) => {
+            let eventNotification = ({ name, type }) => __awaiter(this, void 0, void 0, function* () {
                 if (name !== this.streamName) {
                     return;
                 }
@@ -64,13 +72,16 @@ class WvLinewiseBuffer {
                 }
                 if (type == wv_linewise_1.RESPONSE_TYPE.PAUSED) {
                     this.state = 1;
+                    if (!this.noSleep) {
+                        yield sleep();
+                    }
                     return this.request();
                 }
                 this.wvl.off(wv_linewise_1.RESPONSE_TYPE.FINISHED, eventNotification);
                 this.wvl.off(wv_linewise_1.RESPONSE_TYPE.LINE, eventNotification);
                 this.wvl.off(wv_linewise_1.RESPONSE_TYPE.PAUSED, eventNotification);
                 onlyOnceResolve();
-            };
+            });
             this.wvl.on(wv_linewise_1.RESPONSE_TYPE.FINISHED, eventNotification);
             this.wvl.on(wv_linewise_1.RESPONSE_TYPE.LINE, eventNotification);
             this.wvl.on(wv_linewise_1.RESPONSE_TYPE.PAUSED, eventNotification);
@@ -103,9 +114,8 @@ class WvLinewiseBuffer {
             }
             if (this.buffer.length == 0) {
                 if (this.state == 2) {
-                    return this.notify().then(() => {
-                        return now();
-                    });
+                    yield this.notify();
+                    return now();
                 }
                 return Promise.resolve(null);
             }

@@ -3,6 +3,7 @@
  */
 export type Request = StreamStartRequest | StreamContinueRequest | ParamsRequest | OutRequest | ExitRequest | StreamListRequest;
 
+
 /**
  * Every {@link Request} includes a `msg` which will from this enum.
  */
@@ -292,7 +293,7 @@ export class RawWvLinewiseMock extends RawWvLinewise {
         if (!this.streamData.has(streamName)) {
             this.streamData.set(streamName, []);
         }
-        this.streamData.set(streamName, data);
+        this.streamData.set(streamName, (this.streamData.get(streamName) || []).concat(data));
     }
 
     addParam(name: Param["name"], value: Param["value"]) {

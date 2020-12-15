@@ -24,7 +24,7 @@ To restart the stream use an [StreamContinueRequest](_wv_linewise_.streamcontinu
 
 • **name**: *string*
 
-Defined in wv-linewise.ts:139
+*Defined in [wv-linewise.ts:140](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L140)*
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 • **type**: *[PAUSED](../enums/_wv_linewise_.response_type.md#paused)*
 
-Defined in wv-linewise.ts:138
+*Defined in [wv-linewise.ts:139](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L139)*

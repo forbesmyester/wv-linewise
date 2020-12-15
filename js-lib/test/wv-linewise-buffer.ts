@@ -1,8 +1,8 @@
-import tape from "tape";
+import tap from "tap";
 import { Response, RawWvLinewise, RESPONSE_TYPE, WvLinewise, RawWvLinewiseMock } from "../src/wv-linewise";
 import { WvLinewiseBuffer } from "../src/wv-linewise-buffer";
 
-tape(async function testWvLinewiseBuffer({is: assert, end}) {
+tap.test('testWvLinewiseBuffer', async function testWvLinewiseBuffer({is: assert, end}) {
 
     let progress = 0;
 
@@ -36,9 +36,13 @@ tape(async function testWvLinewiseBuffer({is: assert, end}) {
 
     }
 
+    class MyWvLinewiseBuffer extends WvLinewiseBuffer {
+        protected noSleep = true;
+    }
+
     let wvlr = new RawWvlTest();
     let wvl = new WvlTest(wvlr);
-    let wvlb = new WvLinewiseBuffer(wvl, "in", 3, 3);
+    let wvlb = new MyWvLinewiseBuffer(wvl, "in", 3, 3);
 
     // Initial Get will start the Wvl
     // Get Count: 1, Requests: 1, Buffer: 3 - 1

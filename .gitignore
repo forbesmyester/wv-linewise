@@ -1,2 +1,5 @@
 /target
 **/*.rs.bk
+/lookups.csv
+/lookups.tsv
+/stdin.csv

@@ -21,7 +21,7 @@ Every [Request](../modules/_wv_linewise_.md#request) includes a `msg` which will
 
 • **EXIT**: = "exit"
 
-Defined in wv-linewise.ts:10
+*Defined in [wv-linewise.ts:11](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L11)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **OUT**: = "out"
 
-Defined in wv-linewise.ts:15
+*Defined in [wv-linewise.ts:16](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L16)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **PARAMS**: = "params"
 
-Defined in wv-linewise.ts:14
+*Defined in [wv-linewise.ts:15](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L15)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **STREAM_CONTINUE**: = "streamContinue"
 
-Defined in wv-linewise.ts:13
+*Defined in [wv-linewise.ts:14](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L14)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **STREAM_LIST**: = "streamList"
 
-Defined in wv-linewise.ts:11
+*Defined in [wv-linewise.ts:12](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L12)*
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 • **STREAM_START**: = "streamStart"
 
-Defined in wv-linewise.ts:12
+*Defined in [wv-linewise.ts:13](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L13)*

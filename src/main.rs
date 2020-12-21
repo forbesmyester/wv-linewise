@@ -264,6 +264,7 @@ struct Param { name: String, value: String, }
 #[derive(Debug)]
 struct Opts {
     debug: u64,
+    title: String,
     code: String,
     stream: HashMap<String, String>,
     param: Vec<Param>,
@@ -465,6 +466,12 @@ fn get_opts() -> Opts {
             .multiple(true)
             .value_name("PARAM")
         )
+        .arg(ClapArg::with_name("title")
+            .short("t")
+            .takes_value(true)
+            .long("title")
+            .help("Sets the title of the window")
+        )
         .arg(ClapArg::with_name("debug")
             .short("v")
             .multiple(true)
@@ -473,6 +480,10 @@ fn get_opts() -> Opts {
 
     Opts {
         debug: matches.occurrences_of("debug"),
+        title: match matches.value_of("title") {
+            None => "WV Linewise".to_owned(),
+            Some(s) => s.to_string(),
+        },
         code: match matches.value_of("code") {
             None => "".to_owned(),
             Some(s) => s.to_string(),
@@ -781,7 +792,7 @@ fn main() {
     }
 
     let res_exit = web_view::builder()
-        .title("WV Linewise")
+        .title(&opts.title)
         .content(Content::Html(html_content))
         // .size(800, 600)
         // .resizable(true)

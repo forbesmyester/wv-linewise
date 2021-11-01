@@ -61,7 +61,11 @@ tap.test('testSerialize', function testSerialize(test) {
 
     test.is(
         fet.serialize({ opts: { cache: "no-cache", method: "post", body: JSON.stringify({ a: 2 }) }, id: 3, url: '/snow' }),
-        'REQUEST: 3: POST: /snow {"cache":"no-cache","body":"{\\"a\\":2}"}'
+        'REQUEST: 3: POST: /snow {"a":2}'
+    );
+    test.is(
+        fet.serialize({ opts: { cache: "no-cache", method: "get" }, id: 3, url: '/snow' }),
+        'REQUEST: 3: GET: /snow {}'
     );
     test.end()
 

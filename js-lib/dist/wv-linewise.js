@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runningInWvLinewise = exports.WvLinewise = exports.RawWvLinewiseMock = exports.RawWvLinewise = exports.RESPONSE_TYPE = exports.OUT_REQUEST_DESCRIPTOR = exports.REQUEST_TYPE = void 0;
+exports.externalInvoke = exports.runningInWvLinewise = exports.WvLinewise = exports.RawWvLinewiseMock = exports.RawWvLinewise = exports.RESPONSE_TYPE = exports.OUT_REQUEST_DESCRIPTOR = exports.REQUEST_TYPE = void 0;
 /**
  * Every {@link Request} includes a `msg` which will from this enum.
  */
@@ -241,6 +241,24 @@ class WvLinewise {
 }
 exports.WvLinewise = WvLinewise;
 function runningInWvLinewise() {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.external && window.webkit.messageHandlers.external.postMessage) {
+        window.external = {
+            invoke: (e) => {
+                window.webkit.messageHandlers.external.postMessage(e);
+            }
+        };
+        return true;
+    }
     return !!(window.external && window.external.invoke);
 }
 exports.runningInWvLinewise = runningInWvLinewise;
+function externalInvoke(e) {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.external && window.webkit.messageHandlers.external.postMessage) {
+        return window.webkit.messageHandlers.external.postMessage(e);
+    }
+    if (window.external && window.external.invoke) {
+        return window.external.invoke(e);
+    }
+    throw new Error("WV Linewise: Could not post message: " + JSON.stringify(e));
+}
+exports.externalInvoke = externalInvoke;

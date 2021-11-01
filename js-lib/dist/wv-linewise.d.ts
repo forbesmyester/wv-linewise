@@ -215,3 +215,4 @@ export declare class WvLinewise {
     off<T extends Response>(type: T["type"], f: ResponseDispatcher<T>): void;
 }
 export declare function runningInWvLinewise(): boolean;
+export declare function externalInvoke(e: any): any;

@@ -245,7 +245,24 @@
         }
     }
     function runningInWvLinewise() {
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.external && window.webkit.messageHandlers.external.postMessage) {
+            window.external = {
+                invoke: (e) => {
+                    window.webkit.messageHandlers.external.postMessage(e);
+                }
+            };
+            return true;
+        }
         return !!(window.external && window.external.invoke);
+    }
+    function externalInvoke(e) {
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.external && window.webkit.messageHandlers.external.postMessage) {
+            return window.webkit.messageHandlers.external.postMessage(e);
+        }
+        if (window.external && window.external.invoke) {
+            return window.external.invoke(e);
+        }
+        throw new Error("WV Linewise: Could not post message: " + JSON.stringify(e));
     }
 
     function onlyOnce(f) {
@@ -582,9 +599,7 @@
         }
         function wvLinewiseFetchSerialize(request) {
             let m = (request.opts.method || 'GET').toUpperCase();
-            let o = Object.assign({}, request.opts);
-            delete o.method;
-            return `REQUEST: ${request.id}: ${m}: ${request.url} ${JSON.stringify(o)}`;
+            return `REQUEST: ${request.id}: ${m}: ${request.url} ${request.opts.body || '{}'}`;
         }
         wvLinewiseFetch.request = wvLinewiseFetchRequest;
         wvLinewiseFetch.serialize = wvLinewiseFetchSerialize;
@@ -652,6 +667,7 @@
     exports.WvLinewise = WvLinewise;
     exports.WvLinewiseBuffer = WvLinewiseBuffer;
     exports.WvLinewiseResponse = WvLinewiseResponse;
+    exports.externalInvoke = externalInvoke;
     exports.getWvLinewiseFetch = getWvLinewiseFetch;
     exports.getWvLinewiseManagedFetch = getWvLinewiseManagedFetch;
     exports.runningInWvLinewise = runningInWvLinewise;

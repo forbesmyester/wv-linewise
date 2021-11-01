@@ -238,9 +238,7 @@ function getWvLinewiseFetch(wvl, responseStream) {
     }
     function wvLinewiseFetchSerialize(request) {
         let m = (request.opts.method || 'GET').toUpperCase();
-        let o = Object.assign({}, request.opts);
-        delete o.method;
-        return `REQUEST: ${request.id}: ${m}: ${request.url} ${JSON.stringify(o)}`;
+        return `REQUEST: ${request.id}: ${m}: ${request.url} ${request.opts.body || '{}'}`;
     }
     wvLinewiseFetch.request = wvLinewiseFetchRequest;
     wvLinewiseFetch.serialize = wvLinewiseFetchSerialize;

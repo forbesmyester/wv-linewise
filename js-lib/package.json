@@ -1,6 +1,6 @@
 {
   "name": "wv-linewise-js-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/forbesmyester/wv-linewise"
@@ -14,7 +14,9 @@
   },
   "author": "Matt Forrester <github@speechmarks.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "typescript-language-server": "^0.5.1"
+  },
   "typings": "./dist/main.d.ts",
   "devDependencies": {
     "@rollup/plugin-typescript": "^4.1.2",

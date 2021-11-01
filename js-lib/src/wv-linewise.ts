@@ -412,6 +412,29 @@ export class WvLinewise {
 }
 
 export function runningInWvLinewise(): boolean {
+
+    if ((window as any).webkit && (window as any).webkit.messageHandlers && (window as any).webkit.messageHandlers.external && (window as any).webkit.messageHandlers.external.postMessage) {
+        (window as any).external = {
+            invoke: (e: string) => {
+                (window as any).webkit.messageHandlers.external.postMessage(e);
+            }
+        };
+        return true;
+    }
+
     return !!((window as any).external && (window.external as any).invoke);
+}
+
+export function externalInvoke(e: any) {
+
+    if ((window as any).webkit && (window as any).webkit.messageHandlers && (window as any).webkit.messageHandlers.external && (window as any).webkit.messageHandlers.external.postMessage) {
+        return (window as any).webkit.messageHandlers.external.postMessage(e);
+    }
+
+    if ((window as any).external && (window.external as any).invoke) {
+        return (window.external as any).invoke(e);
+    }
+
+    throw new Error("WV Linewise: Could not post message: " + JSON.stringify(e));
 }
 

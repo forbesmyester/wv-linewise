@@ -22,7 +22,7 @@
 
 • **body**? : *string[]*
 
-*Defined in [wv-linewise-fetch.ts:144](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L144)*
+*Defined in [wv-linewise-fetch.ts:144](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L144)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **end**? : *undefined | false | true*
 
-*Defined in [wv-linewise-fetch.ts:145](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L145)*
+*Defined in [wv-linewise-fetch.ts:145](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L145)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **headers**? : *undefined | object*
 
-*Defined in [wv-linewise-fetch.ts:143](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L143)*
+*Defined in [wv-linewise-fetch.ts:143](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L143)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **id**: *number*
 
-*Defined in [wv-linewise-fetch.ts:141](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L141)*
+*Defined in [wv-linewise-fetch.ts:141](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L141)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **status**? : *undefined | number*
 
-*Defined in [wv-linewise-fetch.ts:142](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L142)*
+*Defined in [wv-linewise-fetch.ts:142](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L142)*

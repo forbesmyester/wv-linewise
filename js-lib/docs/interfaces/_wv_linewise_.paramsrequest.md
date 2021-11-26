@@ -20,4 +20,4 @@
 
 • **msg**: *[PARAMS](../enums/_wv_linewise_.request_type.md#params)*
 
-*Defined in [wv-linewise.ts:60](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L60)*
+*Defined in [wv-linewise.ts:60](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L60)*

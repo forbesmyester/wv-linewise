@@ -46,7 +46,7 @@
 
 \+ **new WvLinewiseResponse**(`url`: string, `resp_text`: string, `status`: number, `headers`: object): *[WvLinewiseResponse](_wv_linewise_fetch_.wvlinewiseresponse.md)*
 
-*Defined in [wv-linewise-fetch.ts:51](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L51)*
+*Defined in [wv-linewise-fetch.ts:51](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L51)*
 
 **Parameters:**
 
@@ -65,7 +65,7 @@ Name | Type |
 
 • **body**: *ReadableStream‹Uint8Array› | null* = null
 
-*Defined in [wv-linewise-fetch.ts:47](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L47)*
+*Defined in [wv-linewise-fetch.ts:47](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L47)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 • **bodyUsed**: *boolean* = true
 
-*Defined in [wv-linewise-fetch.ts:48](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L48)*
+*Defined in [wv-linewise-fetch.ts:48](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L48)*
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 • **headers**: *Headers*
 
-*Defined in [wv-linewise-fetch.ts:41](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L41)*
+*Defined in [wv-linewise-fetch.ts:41](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L41)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **ok**: *boolean*
 
-*Defined in [wv-linewise-fetch.ts:40](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L40)*
+*Defined in [wv-linewise-fetch.ts:40](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L40)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **redirected**: *false* = false
 
-*Defined in [wv-linewise-fetch.ts:42](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L42)*
+*Defined in [wv-linewise-fetch.ts:42](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L42)*
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 • **resp_text**: *string*
 
-*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L53)*
+*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L53)*
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 • **status**: *number*
 
-*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L53)*
+*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L53)*
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 • **statusText**: *string*
 
-*Defined in [wv-linewise-fetch.ts:43](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L43)*
+*Defined in [wv-linewise-fetch.ts:43](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L43)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 • **trailer**: *Promise‹Headers›* = Promise.resolve(new WvHeaders({}))
 
-*Defined in [wv-linewise-fetch.ts:44](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L44)*
+*Defined in [wv-linewise-fetch.ts:44](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L44)*
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 • **type**: *ResponseType* = "basic"
 
-*Defined in [wv-linewise-fetch.ts:45](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L45)*
+*Defined in [wv-linewise-fetch.ts:45](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L45)*
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 • **url**: *string*
 
-*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L53)*
+*Defined in [wv-linewise-fetch.ts:53](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L53)*
 
 ## Methods
 
@@ -153,7 +153,7 @@ ___
 
 ▸ **arrayBuffer**(): *Promise‹ArrayBuffer›*
 
-*Defined in [wv-linewise-fetch.ts:49](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L49)*
+*Defined in [wv-linewise-fetch.ts:49](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L49)*
 
 **Returns:** *Promise‹ArrayBuffer›*
 
@@ -163,7 +163,7 @@ ___
 
 ▸ **blob**(): *Promise‹Blob›*
 
-*Defined in [wv-linewise-fetch.ts:50](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L50)*
+*Defined in [wv-linewise-fetch.ts:50](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L50)*
 
 **Returns:** *Promise‹Blob›*
 
@@ -173,7 +173,7 @@ ___
 
 ▸ **clone**(): *Response*
 
-*Defined in [wv-linewise-fetch.ts:59](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L59)*
+*Defined in [wv-linewise-fetch.ts:59](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L59)*
 
 **Returns:** *Response*
 
@@ -183,7 +183,7 @@ ___
 
 ▸ **formData**(): *Promise‹FormData›*
 
-*Defined in [wv-linewise-fetch.ts:51](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L51)*
+*Defined in [wv-linewise-fetch.ts:51](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L51)*
 
 **Returns:** *Promise‹FormData›*
 
@@ -193,7 +193,7 @@ ___
 
 ▸ **getStatusText**(`n`: number): *string*
 
-*Defined in [wv-linewise-fetch.ts:76](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L76)*
+*Defined in [wv-linewise-fetch.ts:76](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L76)*
 
 **Parameters:**
 
@@ -209,7 +209,7 @@ ___
 
 ▸ **json**(): *Promise‹any›*
 
-*Defined in [wv-linewise-fetch.ts:72](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L72)*
+*Defined in [wv-linewise-fetch.ts:72](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L72)*
 
 **Returns:** *Promise‹any›*
 
@@ -219,6 +219,6 @@ ___
 
 ▸ **text**(): *Promise‹string›*
 
-*Defined in [wv-linewise-fetch.ts:74](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L74)*
+*Defined in [wv-linewise-fetch.ts:74](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L74)*
 
 **Returns:** *Promise‹string›*

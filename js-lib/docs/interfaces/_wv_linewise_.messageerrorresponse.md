@@ -22,7 +22,7 @@ invalid.
 
 • **error**: *string*
 
-*Defined in [wv-linewise.ts:181](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L181)*
+*Defined in [wv-linewise.ts:181](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L181)*
 
 ___
 
@@ -30,4 +30,4 @@ ___
 
 • **type**: *[MESSAGE_ERROR](../enums/_wv_linewise_.response_type.md#message_error)*
 
-*Defined in [wv-linewise.ts:180](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L180)*
+*Defined in [wv-linewise.ts:180](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L180)*

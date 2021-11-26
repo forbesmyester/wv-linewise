@@ -23,7 +23,7 @@ the actual data from the file or STDIN.
 
 • **data**: *string*
 
-*Defined in [wv-linewise.ts:172](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L172)*
+*Defined in [wv-linewise.ts:172](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L172)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [wv-linewise.ts:171](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L171)*
+*Defined in [wv-linewise.ts:171](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L171)*
 
 ___
 
@@ -39,4 +39,4 @@ ___
 
 • **type**: *[LINE](../enums/_wv_linewise_.response_type.md#line)*
 
-*Defined in [wv-linewise.ts:170](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L170)*
+*Defined in [wv-linewise.ts:170](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L170)*

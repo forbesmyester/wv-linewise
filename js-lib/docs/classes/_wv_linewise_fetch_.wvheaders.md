@@ -36,7 +36,7 @@
 
 \+ **new WvHeaders**(`kv`: object): *[WvHeaders](_wv_linewise_fetch_.wvheaders.md)*
 
-*Defined in [wv-linewise-fetch.ts:29](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L29)*
+*Defined in [wv-linewise-fetch.ts:29](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L29)*
 
 **Parameters:**
 
@@ -52,7 +52,7 @@ Name | Type |
 
 ▸ **append**(`_name`: string, `_value`: string): *void*
 
-*Defined in [wv-linewise-fetch.ts:8](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L8)*
+*Defined in [wv-linewise-fetch.ts:8](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L8)*
 
 **Parameters:**
 
@@ -69,7 +69,7 @@ ___
 
 ▸ **delete**(`_name`: string): *void*
 
-*Defined in [wv-linewise-fetch.ts:9](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L9)*
+*Defined in [wv-linewise-fetch.ts:9](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L9)*
 
 **Parameters:**
 
@@ -85,7 +85,7 @@ ___
 
 ▸ **forEach**(`callbackfn`: function, `thisArg?`: any): *void*
 
-*Defined in [wv-linewise-fetch.ts:18](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L18)*
+*Defined in [wv-linewise-fetch.ts:18](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L18)*
 
 **Parameters:**
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **get**(`name`: string): *null | string*
 
-*Defined in [wv-linewise-fetch.ts:10](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L10)*
+*Defined in [wv-linewise-fetch.ts:10](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L10)*
 
 **Parameters:**
 
@@ -128,7 +128,7 @@ ___
 
 ▸ **has**(`name`: string): *boolean*
 
-*Defined in [wv-linewise-fetch.ts:16](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L16)*
+*Defined in [wv-linewise-fetch.ts:16](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L16)*
 
 **Parameters:**
 
@@ -144,7 +144,7 @@ ___
 
 ▸ **set**(`_name`: string, `_value`: string): *void*
 
-*Defined in [wv-linewise-fetch.ts:17](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L17)*
+*Defined in [wv-linewise-fetch.ts:17](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L17)*
 
 **Parameters:**
 

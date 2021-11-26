@@ -23,7 +23,7 @@ this [Request](../modules/_wv_linewise_.md#request)
 
 • **msg**: *[STREAM_CONTINUE](../enums/_wv_linewise_.request_type.md#stream_continue)*
 
-*Defined in [wv-linewise.ts:52](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L52)*
+*Defined in [wv-linewise.ts:52](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L52)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **name**: *string*
 
-*Defined in [wv-linewise.ts:53](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L53)*
+*Defined in [wv-linewise.ts:53](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L53)*

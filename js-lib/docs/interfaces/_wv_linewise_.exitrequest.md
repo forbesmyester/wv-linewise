@@ -21,7 +21,7 @@
 
 • **msg**: *[EXIT](../enums/_wv_linewise_.request_type.md#exit)*
 
-*Defined in [wv-linewise.ts:34](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L34)*
+*Defined in [wv-linewise.ts:34](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L34)*
 
 ___
 
@@ -29,6 +29,6 @@ ___
 
 • **status**: *number*
 
-*Defined in [wv-linewise.ts:36](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L36)*
+*Defined in [wv-linewise.ts:36](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L36)*
 
 This is the exit status returned to the software which started the webview, 0 is success

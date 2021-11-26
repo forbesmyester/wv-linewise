@@ -22,7 +22,7 @@ but it may also have an end. This marks the end.
 
 • **name**: *string*
 
-*Defined in [wv-linewise.ts:149](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L149)*
+*Defined in [wv-linewise.ts:149](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L149)*
 
 ___
 
@@ -30,4 +30,4 @@ ___
 
 • **type**: *[FINISHED](../enums/_wv_linewise_.response_type.md#finished)*
 
-*Defined in [wv-linewise.ts:148](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L148)*
+*Defined in [wv-linewise.ts:148](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L148)*

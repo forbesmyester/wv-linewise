@@ -26,7 +26,7 @@
 
 ▸ **getWvLinewiseFetch**(`wvl`: [WvLinewise](../classes/_wv_linewise_.wvlinewise.md), `responseStream`: string): *wvLinewiseFetch*
 
-*Defined in [wv-linewise-fetch.ts:149](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L149)*
+*Defined in [wv-linewise-fetch.ts:149](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L149)*
 
 **Parameters:**
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **getWvLinewiseManagedFetch**(`wvl`: [WvLinewise](../classes/_wv_linewise_.wvlinewise.md), `responseStream`: string, `getTimeout`: function): *wvLinewiseManagedFetch*
 
-*Defined in [wv-linewise-fetch.ts:300](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L300)*
+*Defined in [wv-linewise-fetch.ts:298](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L298)*
 
 **Parameters:**
 

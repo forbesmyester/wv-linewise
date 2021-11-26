@@ -23,7 +23,7 @@
 
 ▸ **onlyOnce**(`f`: Function): *onlyOnceImp*
 
-*Defined in [wv-linewise-buffer.ts:3](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L3)*
+*Defined in [wv-linewise-buffer.ts:3](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-buffer.ts#L3)*
 
 **Parameters:**
 
@@ -39,6 +39,6 @@ ___
 
 ▸ **sleep**(): *Promise‹null›*
 
-*Defined in [wv-linewise-buffer.ts:19](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-buffer.ts#L19)*
+*Defined in [wv-linewise-buffer.ts:19](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-buffer.ts#L19)*
 
 **Returns:** *Promise‹null›*

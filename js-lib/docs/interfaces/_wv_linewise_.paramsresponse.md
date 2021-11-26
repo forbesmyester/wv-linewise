@@ -21,7 +21,7 @@ The parameters that were passed to WV Linewise, perhaps in BASH when it was star
 
 • **params**: *[Param](_wv_linewise_.param.md)[]*
 
-*Defined in [wv-linewise.ts:121](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L121)*
+*Defined in [wv-linewise.ts:121](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L121)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **type**: *[PARAMS](../enums/_wv_linewise_.response_type.md#params)*
 
-*Defined in [wv-linewise.ts:120](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise.ts#L120)*
+*Defined in [wv-linewise.ts:120](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise.ts#L120)*

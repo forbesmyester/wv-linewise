@@ -34,6 +34,7 @@
 * [WvLinewiseFetchCurrent](_main_.md#wvlinewisefetchcurrent)
 * [WvLinewiseRequest](_main_.md#wvlinewiserequest)
 * [WvLinewiseResponse](_main_.md#wvlinewiseresponse)
+* [externalInvoke](_main_.md#externalinvoke)
 * [getWvLinewiseFetch](_main_.md#getwvlinewisefetch)
 * [getWvLinewiseManagedFetch](_main_.md#getwvlinewisemanagedfetch)
 * [runningInWvLinewise](_main_.md#runninginwvlinewise)
@@ -205,6 +206,12 @@ ___
 ###  WvLinewiseResponse
 
 • **WvLinewiseResponse**:
+
+___
+
+###  externalInvoke
+
+• **externalInvoke**:
 
 ___
 

@@ -20,7 +20,7 @@
 
 • **id**: *number*
 
-*Defined in [wv-linewise-fetch.ts:136](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L136)*
+*Defined in [wv-linewise-fetch.ts:136](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L136)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **opts**: *RequestInit*
 
-*Defined in [wv-linewise-fetch.ts:134](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L134)*
+*Defined in [wv-linewise-fetch.ts:134](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L134)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **url**: *string*
 
-*Defined in [wv-linewise-fetch.ts:135](https://github.com/forbesmyester/wv-linewise/blob/65da995/js-lib/src/wv-linewise-fetch.ts#L135)*
+*Defined in [wv-linewise-fetch.ts:135](https://github.com/forbesmyester/wv-linewise/blob/5431908/js-lib/src/wv-linewise-fetch.ts#L135)*

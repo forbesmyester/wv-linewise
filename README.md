@@ -39,10 +39,10 @@ This program could be invoked like the following:
     echo 'Alice,31' >> stdin.csv
     echo 'Jane,27' >> stdin.csv
 
-    cat stdin.csv | wv-linewise \
-        --code join_csvs.html \
+    cat stdin.csv | wv_linewise \
+        --code ./examples/bad-join.html \
         --stream this_is_stdin=- \
-        --stream lookups=lookups.csv
+        --stream lookups=lookups.csv \
         --param this_is_stdin='["Name"]' \
         --param lookups='["First Name"]' \
         --param request_count=2

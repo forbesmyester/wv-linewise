@@ -38,7 +38,7 @@
   function send(msg) {
     let j = JSON.stringify(msg)
     disp("< " + j);
-    external.invoke(j);
+    window.webkit.messageHandlers.external.postMessage(j);
   }
 
 

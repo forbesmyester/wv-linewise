@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global['wv-linewise-js-lib'] = {}));
-}(this, (function (exports) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["wv-linewise-js-lib"] = {}));
+})(this, (function (exports) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -29,6 +29,10 @@
         });
     }
 
+    /**
+     * Every {@link Request} includes a `msg` which will from this enum.
+     */
+    exports.REQUEST_TYPE = void 0;
     (function (REQUEST_TYPE) {
         REQUEST_TYPE["EXIT"] = "exit";
         REQUEST_TYPE["STREAM_LIST"] = "streamList";
@@ -37,6 +41,10 @@
         REQUEST_TYPE["PARAMS"] = "params";
         REQUEST_TYPE["OUT"] = "out";
     })(exports.REQUEST_TYPE || (exports.REQUEST_TYPE = {}));
+    /**
+     * Used by {@link OutRequest} to control which UNIX stream to write to.
+     */
+    exports.OUT_REQUEST_DESCRIPTOR = void 0;
     (function (OUT_REQUEST_DESCRIPTOR) {
         OUT_REQUEST_DESCRIPTOR[OUT_REQUEST_DESCRIPTOR["STDOUT"] = 1] = "STDOUT";
         OUT_REQUEST_DESCRIPTOR[OUT_REQUEST_DESCRIPTOR["STDERR"] = 2] = "STDERR";
@@ -48,6 +56,10 @@
         OUT_REQUEST_DESCRIPTOR[OUT_REQUEST_DESCRIPTOR["DESCRIPTOR_8"] = 8] = "DESCRIPTOR_8";
         OUT_REQUEST_DESCRIPTOR[OUT_REQUEST_DESCRIPTOR["DESCRIPTOR_9"] = 9] = "DESCRIPTOR_9";
     })(exports.OUT_REQUEST_DESCRIPTOR || (exports.OUT_REQUEST_DESCRIPTOR = {}));
+    /**
+     * Every {@link Response} includes a `type` which will from this enum.
+     */
+    exports.RESPONSE_TYPE = void 0;
     (function (RESPONSE_TYPE) {
         RESPONSE_TYPE["PARAMS"] = "params";
         RESPONSE_TYPE["LINE"] = "line";
@@ -674,4 +686,4 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

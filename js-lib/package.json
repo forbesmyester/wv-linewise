@@ -1,6 +1,6 @@
 {
   "name": "wv-linewise-js-lib",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/forbesmyester/wv-linewise"
@@ -10,26 +10,27 @@
   "main": "dist/main.js",
   "scripts": {
     "test": "npx ts-node test/wv-linewise-fetch.ts && npx ts-node test/wv-linewise-buffer.ts",
-    "build": "rm -rf dist ; npx tsc && npx rollup -c && npx typedoc --readme none"
+    "build": "rm -rf dist ; npx tsc && npx rollup -c",
+    "doc": "node_modules/.bin/typedoc docs --entryPointStrategy expand src"
   },
   "author": "Matt Forrester <github@speechmarks.com>",
   "license": "MIT",
   "dependencies": {
-    "typescript-language-server": "^0.5.1"
+    "typedoc": "^0.22.12",
+    "typedoc-plugin-markdown": "^3.11.14",
+    "typescript-language-server": "^0.5.4"
   },
   "typings": "./dist/main.d.ts",
   "devDependencies": {
     "@rollup/plugin-typescript": "^4.1.2",
-    "@types/tap": "^14.10.1",
-    "@types/tape": "^4.13.0",
-    "rollup": "^2.13.1",
+    "@types/tap": "^14.10.3",
+    "@types/tape": "^4.13.2",
+    "rollup": "^2.68.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "tap": "^15.1.2",
-    "tape": "^5.0.1",
+    "tap": "^15.1.6",
+    "tape": "^5.5.2",
     "ts-node": "^8.10.2",
-    "tslint": "^6.1.2",
-    "typedoc": "^0.22.11",
-    "typedoc-plugin-markdown": "^2.3.1",
-    "typescript": "^3.9.3"
+    "tslint": "^6.1.3",
+    "typescript": "^4.5.5"
   }
 }

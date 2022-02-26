@@ -1,12 +1,7 @@
-[wv-linewise-js-lib](README.md)
+wv-linewise-js-lib / [Modules](modules.md)
 
 # wv-linewise-js-lib
 
-## Index
+There are API docs available in the [docs](https://github.com/forbesmyester/wv-linewise/blob/master/js-lib/docs/README.md) directory.
 
-### Modules
-
-* ["main"](modules/_main_.md)
-* ["wv-linewise"](modules/_wv_linewise_.md)
-* ["wv-linewise-buffer"](modules/_wv_linewise_buffer_.md)
-* ["wv-linewise-fetch"](modules/_wv_linewise_fetch_.md)
+Overall usage documentation can be found in the [WV Linewise repository](https://github.com/forbesmyester/wv-linewise/README.md)

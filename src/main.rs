@@ -437,7 +437,7 @@ fn stream(filename: String, pause_at: u64) -> StartedCommChannel {
 fn get_opts() -> Opts {
 
     let matches = ClapApp::new("wv-linewise")
-        .version("0.0.0")
+        .version(clap::crate_version!())
         .author("Matthew Forrester")
         .about("Puts the power of the  browser into pipes.")
         .arg(ClapArg::with_name("code")

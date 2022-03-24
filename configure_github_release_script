@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+
+cat .github/workflows/rust.yml | yq '.jobs.unix_like.steps[3].with.draft = false' | yq '.on = { "push": { "tags": ["v*"] } } ' | yq '.name = "Rust Tag"' > .github/workflows/rust-tag.yml

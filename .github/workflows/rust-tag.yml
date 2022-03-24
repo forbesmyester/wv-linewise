@@ -1,0 +1,51 @@
+name: Rust Tag
+on:
+  push:
+    tags:
+      - v*
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  unix_like:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-20.04
+            build_name: wv_linewise
+            upload_name: wv_linewise
+            os_name: Ubuntu 20.04
+          - os: macos-latest
+            build_name: wv_linewise
+            upload_name: wv_linewise
+            os_name: MacOS
+          - os: windows-latest
+            build_name: wv_linewise.exe
+            upload_name: wv_linewise.exe
+            os_name: Windows
+    steps:
+      - uses: actions/checkout@v2
+      - name: Libs
+        if: (matrix.os == 'ubuntu-20.04') || (matrix.os == 'macos-latest')
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.0-37 || true
+      - name: Build
+        run: cargo build --verbose --release
+      - name: Release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}-${{ matrix.os }}
+          release_name: "Release ${{ github.ref }}: ${{ matrix.os_name }}"
+          draft: false
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: target/release/${{ matrix.build_name }}
+          asset_name: ${{ matrix.upload_name }}
+          asset_content_type: application/x-executable

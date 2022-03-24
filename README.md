@@ -230,6 +230,7 @@ If you want to see how the interact with the original lightweight API this is pr
 
 ## Releases
 
+ * v0.1.3 - Move Windows builds to Edge (yes the old non Chrome version) and fix in CI/CD so I don't have any manual intervention when releasing via a Git Tag
  * v0.1.2 - Fix Ubuntu 20.04, fix `--version` command line flag and add ability to specify window title
  * v0.1.1 - Fix branding and examples/discover-types not outputting to STDOUT on continuous-and-exit
  * v0.1.0 - Initial Release

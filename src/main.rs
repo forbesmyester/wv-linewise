@@ -242,6 +242,7 @@ struct PendingCommChannel { filename: String }
 
 #[derive(Debug)]
 struct StartedCommChannel {
+    original_filename: String,
     thread: JoinHandle<()>,
     tx: Sender<usize>,
     rx: Receiver<String>,
@@ -266,6 +267,7 @@ struct Opts {
     debug: u64,
     title: String,
     code: String,
+    restartable: bool,
     stream: HashMap<String, String>,
     param: Vec<Param>,
 }
@@ -356,6 +358,7 @@ fn get_reader(name: &str) -> std::io::Result<Box<dyn Read>> {
 
 fn stream(filename: String, pause_at: u64) -> StartedCommChannel {
 
+    let original_filename = filename.clone();
     let (tx, rx): (Sender<String>, Receiver<String>) = mpsc::channel();
     let (cont_tx, cont_rx): (Sender<usize>, Receiver<usize>) = mpsc::channel();
     let thread_tx = tx.clone();
@@ -427,6 +430,7 @@ fn stream(filename: String, pause_at: u64) -> StartedCommChannel {
     });
 
     StartedCommChannel {
+        original_filename,
         thread,
         tx: cont_tx,
         rx
@@ -476,6 +480,11 @@ fn get_opts() -> Opts {
             .short("v")
             .multiple(true)
             .help("Sets the level of debug")
+        )
+        .arg(ClapArg::with_name("restartable")
+            .short("r")
+            .long("restartable")
+            .help("Allows restarting streams when they come from a file")
         ).get_matches();
 
     Opts {
@@ -483,6 +492,10 @@ fn get_opts() -> Opts {
         title: match matches.value_of("title") {
             None => "WV Linewise".to_owned(),
             Some(s) => s.to_string(),
+        },
+        restartable: match matches.index_of("restartable") {
+            Some(_) => true,
+            _ => false,
         },
         code: match matches.value_of("code") {
             None => "".to_owned(),
@@ -552,7 +565,7 @@ fn start_comm_channel(msg: &StartingMessage, channels: &mut Channels) -> bool {
                     CommChannel::Started(_scc) => false,
                     CommChannel::Finished => false,
                 }
-            }).is_some()
+            }).unwrap_or(false)
         }
         StartingMessage::RequestContinue(request) => {
             match channels.get(&request.name) {
@@ -565,15 +578,24 @@ fn start_comm_channel(msg: &StartingMessage, channels: &mut Channels) -> bool {
     }
 }
 
+struct ManageStreamResp {
+    finished: bool,
+    pending_response: Option<Response>,
+}
 
-fn manage_stream<S>(send: &mut S, channel: &StartedCommChannel, name: &str) -> bool
+
+
+fn manage_stream<S>(send: &mut S, channel: &StartedCommChannel, name: &str) -> ManageStreamResp
     where S: FnMut(Response)
 {
 
     &channel.tx.send(STREAM_START_CONTINUE);
 
     let mut done = false;
-    let mut finished = false;
+    let mut finished = ManageStreamResp {
+        finished: false,
+        pending_response: None
+    };
 
     while !done {
 
@@ -606,12 +628,17 @@ fn manage_stream<S>(send: &mut S, channel: &StartedCommChannel, name: &str) -> b
                     name: name.to_owned(),
                     error: error.to_string()
                 }));
-                finished = true;
+                finished = ManageStreamResp {
+                    finished: true,
+                    pending_response: None
+                };
                 break;
             },
             ["f"] => {
-                send(Response::StreamFinished(StreamFinished { name: name.to_string() }));
-                finished = true;
+                finished = ManageStreamResp {
+                    finished: true,
+                    pending_response: Some(Response::StreamFinished(StreamFinished { name: name.to_string() }))
+                };
                 break;
             },
             ["p"] => {
@@ -619,7 +646,10 @@ fn manage_stream<S>(send: &mut S, channel: &StartedCommChannel, name: &str) -> b
                 break;
             },
             _ => {
-                finished = true;
+                finished = ManageStreamResp {
+                    finished: true,
+                    pending_response: None
+                };
                 eprintln!("{}{:?}", ERROR_STDERR_COULD_NOT_READ_MESSAGE_FROM_INPUT_READER_THREAD, chunks)
             }
         }
@@ -832,7 +862,6 @@ fn main() {
                         eprintln!("{}{:?}{}", ERROR_STDERR_COULD_NOT_DECODE_RESPONSE, &r, e);
                     }
                 }
-
             };
 
             let stream_to_manage = get_stream_to_manage(&msg_str, &opts, &mut channels);
@@ -859,12 +888,32 @@ fn main() {
                 Some(name) => {
                     match channels.get(&name) {
                         Some(CommChannel::Started(c)) => {
-                            if manage_stream(&mut send, c, &name) {
-                                channels.insert(name.to_owned(), CommChannel::Finished);
+                            let original_filename = c.original_filename.to_owned();
+                            let manage_stream_resp = manage_stream(&mut send, c, &name);
+                            match (manage_stream_resp.finished, opts.restartable, original_filename.as_ref()) {
+                                (true, _, "-") => {
+                                    channels.insert(name.to_owned(), CommChannel::Finished );
+                                }
+                                (true, true, _) => {
+                                    channels.insert(name.to_owned(), CommChannel::Pending(PendingCommChannel { filename: original_filename }) );
+                                }
+                                (true, false, _) => {
+                                    channels.insert(name.to_owned(), CommChannel::Finished );
+                                }
+                                _ => {},
+                            }
+                            if let Some(to_send) = manage_stream_resp.pending_response {
+                                send(to_send);
                             }
                             Result::Ok(())
                         },
-                        _ => Result::Err(web_view::Error::UninitializedField("Huh?")),
+                        Some(CommChannel::Finished) => {
+                            send(Response::StreamFinished(StreamFinished { name }) );
+                            Result::Ok(())
+                        }
+                        _ => {
+                            Result::Err(web_view::Error::UninitializedField("Huh?"))
+                        }
                     }
                 }
             }

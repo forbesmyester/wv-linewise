@@ -1,6 +1,6 @@
 [package]
 name = "wv_linewise"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Matthew Forrester <matthew.forrester@speechmarks.com>"]
 edition = "2018"
 

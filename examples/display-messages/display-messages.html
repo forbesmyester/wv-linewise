@@ -121,9 +121,11 @@
       send({"msg":"streamList"});
     }
 
+    let strms = []
     // Start all streams that don't include the word "in".
     if (msg.type == "streamList") {
       msg.streams.forEach(function(strm) {
+        strms.push(strm);
         send({ msg: "streamStart", name: strm, count: requestCount });
         running.add(strm);
       });
@@ -143,6 +145,12 @@
     // We start "lookups" on launch and put "in" into otherStreams, so when
     // "lookups" finishes, we start "in" and then when "in" finishes we exit.
     if (msg.type == "finished") {
+
+      // If stream came from file, you may choose to restart it (might be a FIFO?)
+      // send({ msg: "streamStart", name: "this_is_stdin", count: requestCount });
+
+      // But alternatively you could do something else, in this case we exit
+      // when all the streams have exited
       running.delete(msg.name);
       if (running.size == 0) {
         disp('SENDING \'{"msg":"exit", "status": 0}\' - in 10 seconds');

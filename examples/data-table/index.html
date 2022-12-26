@@ -1,0 +1,528 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body { height: 100%; margin: 0; }
+      td.null { text-align: center }
+      #controls { text-align: right; padding: 0.5em; }
+      .table_holder {
+        overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+        height: 100%; /* gives an initial height of 200px to the table */
+      }
+      .table_holder thead th {
+        position: sticky; /* make the table heads sticky */
+        top: 0px; /* table head will be placed from the top of the table and sticks to it */
+      }
+      .table_holder table {
+        border-collapse: collapse; /* make the table borders collapse to each other */
+        width: 100%;
+      }
+      .table_holder th,
+      .table_holder td {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+      }
+      .table_holder th {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="table_holder">
+      <table id="table" class="scroller">
+        <thead id="thead">
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+      </table>
+    </div>
+    <div id="controls">
+      <button type="button" id="btn">_____</button>
+    </div>
+  </body>
+
+  <script>
+
+    let streamConfig = {
+      params: {},
+      stream: { name: "", rewindable: false, restartable: false, finished: false, running: false, lineCount: 0 },
+    }
+
+    function getParameter(streamConfig, key, defaultValue, dataType) {
+      let matches = streamConfig.params.filter((param) => param.name == key).map((x) => x.value);
+      if (matches.length) {
+        if (dataType == "int") {
+          return parseInt(matches[0]);
+        }
+        if (dataType == "bool") {
+          switch (matches[0].toLowerCase()) {
+            case "0":
+              return false;
+            case "false":
+              return false;
+            case "f":
+              return false;
+            case "n":
+              return false;
+            case "1":
+              return true;
+            case "true":
+              return true;
+            case "t":
+              return true;
+            case "y":
+              return true;
+          }
+        }
+      }
+      return defaultValue;
+    }
+
+    function getChunkSize(streamConfig) {
+      let p = getParameter(streamConfig, "chunk_size", 4, "int");
+      return p > 0 ? p : 8
+    }
+
+    function getHeadCount(streamConfig) {
+      let p = getParameter(streamConfig, "head_count", 8, "int");
+      return p >= 0 ? p : 1
+    }
+
+    function getAutoAdvance(streamConfig) {
+      return getParameter(streamConfig, "auto_advance", false, "bool");
+    }
+
+    function getAutoRestart(streamConfig) {
+      return getParameter(streamConfig, "auto_restart", false, "bool");
+    }
+
+    function getAutoStart(streamConfig) {
+      return getParameter(streamConfig, "auto_start", false, "bool");
+    }
+
+    // Display a message so ther user can see it
+    function disp(s) {
+      const el = document.createElement("div");
+      el.innerText = s
+      document.querySelector("body").appendChild(el);
+      // console.log(s);
+    }
+
+    function errorJsonParseLine(dataLine) {
+      console.error("errorJsonParseLine", dataLine);
+    }
+    function errorUnrecognizedDataCmd(data) {
+      console.error("errorUnrecognizedDataCmd", data);
+    }
+
+    function htmlAppendChildElements(el, children, clear) {
+      if (clear) {
+        el.html = '';
+      }
+      return children.reduce(
+        (el, inr) => {
+          el.append(inr);
+          return el;
+        },
+        el
+      );
+    }
+
+    function htmlCreateElement(tagName, attributes, inner) {
+      let el = document.createElement(tagName);
+      el = Object.entries(attributes).reduce(
+        (el, [attrK, attrV]) => {
+          el.setAttribute(attrK, attrV);
+          return el;
+        },
+        el
+      );
+      return htmlAppendChildElements(el, inner);
+    }
+
+    function htmlShiftElement(parentEl, index = 0) {
+      let childEl = parentEl.children.item(index);
+      parentEl.removeChild(childEl);
+      return childEl;
+    }
+
+    function refreshButton(streamConfig) {
+      let text = streamConfig.stream.lineCount == 0 ? "Start" : "Continue";
+      let disabled = true;
+      if (!streamConfig.stream.running) {
+        if (!streamConfig.stream.finished) {
+          disabled = false;
+        }
+        if ((streamConfig.stream.finished) && (streamConfig.stream.restartable)) {
+          text = "Restart";
+          disabled = false;
+        }
+      }
+
+      let btn = document.getElementById("btn");
+      if (disabled) {
+        btn.setAttribute("disabled", "disabled");
+      } else {
+        btn.removeAttribute("disabled");
+      }
+      btn.innerText = text;
+    }
+
+    // ========================================================================
+
+    class Draw {
+
+      defineFields(configFields) {
+        let thead = document.getElementById("thead");
+        let tbody = document.getElementById("tbody");
+        thead.innerText = '';
+        tbody.innerText = '';
+        let ths = configFields.map(({name, dataType}) => {
+          return htmlCreateElement("th", {}, [name]);
+        });
+        ths[ths.length - 1].style.textAlign = "right";
+        htmlAppendChildElements(ths[ths.length - 1], [ document.getElementById("btn") ], true);
+        htmlAppendChildElements(thead, [htmlCreateElement("tr", {}, ths)], true);
+      }
+
+      _getTdAttributes(rd) {
+        return { "class": [].concat(rd.isNull ? ["null"] : []).join(" ") };
+      }
+
+      _getTdInnerText(rd) {
+        return rd.isNull ?
+          "‧" :
+          rd.dataType == 'json' ? JSON.stringify(rd.value) : rd.value
+      }
+
+      _createRow(rowData) {
+        return htmlCreateElement(
+          "tr",
+          {},
+          rowData.map(
+            (rd) => htmlCreateElement("td", this._getTdAttributes(rd), [ this._getTdInnerText(rd) ])
+          )
+        );
+      }
+
+      _takeRow(tbody, headCount, rowData) {
+        let r = htmlShiftElement(tbody, headCount + 1)
+        Array.from(r.children).forEach(
+          (td, i) => {
+            let rd = rowData[i];
+            Object.entries(this._getTdAttributes(rd)).forEach(([k, v]) => {
+              td.setAttribute(k, v);
+            });
+            td.innerText = this._getTdInnerText(rd);
+          }
+        );
+        return r;
+      }
+
+      _getHeadCount() {
+        if (this.hasOwnProperty('_headCount')) {
+          return this.headCount;
+        }
+        this._headCount = getHeadCount(streamConfig);
+        return this._headCount;
+      }
+
+      _getRowForAdding(rowData) {
+
+        let tbody = document.getElementById("tbody")
+        let headCount = this._getHeadCount(streamConfig);
+
+        function getWindowHeight() {
+          window.document.body.clientHeight;
+        }
+
+        function getSeperatorRow() {
+          return htmlCreateElement(
+            "tr",
+            {},
+            [
+              htmlCreateElement(
+                "td",
+                { colspan: "" + tbody.querySelector("tr").childElementCount },
+                [ "-" ]
+              )
+            ]
+          )
+        }
+
+        if (tbody.childElementCount == headCount) {
+          document.getElementById("tbody").append(getSeperatorRow());
+        }
+
+        if (tbody.childElementCount == 0) {
+          return this._createRow(rowData);
+        }
+
+        let avgTrHeight = (
+            (tbody.lastElementChild.getBoundingClientRect().y + tbody.lastElementChild.getBoundingClientRect().height) -
+            tbody.firstElementChild.getBoundingClientRect().y
+          ) / tbody.childElementCount;
+        let bodyHeight = window.document.body.clientHeight;
+        let tableBottom = tbody.parentElement.getBoundingClientRect().y + tbody.parentElement.getBoundingClientRect().height;
+
+        return (tableBottom + avgTrHeight) > bodyHeight ?
+          this._takeRow(tbody, headCount, rowData) :
+          this._createRow(rowData);
+      }
+
+      addLine(rowData) {
+        let addRow = this._getRowForAdding(rowData);
+        document.getElementById("tbody").append(addRow);
+        let tbody = document.getElementById("tbody");
+        let tableBottom = tbody.parentElement.getBoundingClientRect().y + tbody.parentElement.getBoundingClientRect().height;
+        let bodyHeight = window.document.body.clientHeight;
+        while (tableBottom > bodyHeight) {
+          this._takeRow(tbody, getHeadCount(streamConfig), rowData);
+          tableBottom = tbody.parentElement.getBoundingClientRect().y + tbody.parentElement.getBoundingClientRect().height;
+        }
+      }
+
+    }
+
+    class Data {
+
+      constructor() {
+        this.fields = [];
+      }
+
+      defineFields(data) {
+        this.fields = data.fields.map(
+          ({name, data_type}) => ({name, dataType: data_type})
+        );
+        return this.fields;
+      }
+
+      addLine(data) {
+
+        function pushIntoOverflow(acc, k, v) {
+          acc[""].isNull = false;
+          if (!acc[""].hasOwnProperty("data")) {
+            acc[""].data = {};
+          }
+          acc[""].data[k] = v;
+          return acc;
+        }
+
+        function getIndexesForField(dataMap, dataType, name) {
+          return dataMap[dataType + "/" + name] || [];
+        }
+
+        function buildDataMap(configFields) {
+          return configFields.reduce(
+            (acc, { name, dataType }, index) => {
+              if (!acc.hasOwnProperty(dataType + "/" + name)) {
+                acc[dataType + "/" + name] = [];
+              }
+              acc[dataType + "/" + name].push(index);
+              return acc;
+            },
+            {}
+          );
+        }
+
+        function getDataRowReducer(dataMap) {
+          return function(acc, dataField) {
+            let indexes = getIndexesForField(dataMap, dataField["data_type"], dataField["name"]);
+            for (var i = 0; i < indexes.length ; i++) {
+              if (acc[indexes[i]].isNull) {
+                acc[indexes[i]].isNull = false;
+                acc[indexes[i]].value = dataField["value"];
+                return acc;
+              }
+            }
+            acc[acc.length - 1].isNull = false;
+            if (!acc[acc.length - 1].value.hasOwnProperty(dataField["name"])) {
+              acc[acc.length - 1].value[dataField["name"]] = [];
+            }
+            acc[acc.length - 1].value[dataField["name"]].push({ value: dataField["value"], type: dataField["data_type"] });
+            return acc;
+          }
+        }
+
+        let dataMap = buildDataMap(this.fields);
+
+        let initialRowData = this.fields.map(
+          ({ name, dataType }) => {
+            return { isNull: true, dataType };
+          })
+          .concat([{ isNull: true, value: {}, dataType: "json" }]);
+
+        return data.fields
+          .reduce(
+            getDataRowReducer(dataMap),
+            initialRowData
+          );
+
+      }
+    }
+
+    class Handler {
+
+      constructor (data, draw) {
+        this.data = data;
+        this.draw = draw;
+        this.config = {};
+      }
+
+      addLine(line) {
+        streamConfig.stream.lineCount = streamConfig.stream.lineCount + 1;
+        draw.addLine(data.addLine(line));
+      }
+
+      defineFields(line) {
+        if (streamConfig.stream.lineCount != 0) {
+          return;
+        }
+        function addJsonOverflow(configFields) {
+          return [...configFields, {name: "", dataType: "json"}];
+        }
+        this.config = this.data.defineFields(line);
+        this.draw.defineFields(addJsonOverflow(this.config));
+      }
+
+    }
+
+    let draw = new Draw();
+    let data = new Data();
+    let handler = new Handler(data, draw);
+
+    // ========================================================================
+
+    function handleLine(handler, dataLine) {
+      let input = {};
+      try {
+        input = JSON.parse(dataLine);
+      }
+      catch (e) {
+        return errorJsonParseLine(dataLine);
+      }
+      if (["add_line", "define_fields"].indexOf(input.cmd) < 0) {
+        return errorUnrecognizedDataCmd(dataLine);
+      }
+      let handlingFunctions = {
+        add_line: handler.addLine,
+        define_fields: handler.defineFields,
+      };
+      handlingFunctions[input.cmd].call(handler, input);
+    }
+
+    // Send a message from the Web-View to WV Linewise
+    function send(msg) {
+      let j = JSON.stringify(msg)
+      // console.log("<< ", JSON.stringify(msg));
+      // disp("<< " + j);
+      if (window?.webkit?.messageHandlers?.external?.postMessage) {
+        return setTimeout(() => { window.webkit.messageHandlers.external.postMessage(j); }, 0);
+      }
+      if (msg.msg == 'params') {
+        return _globalWvLinewise({"type":"params","params":[{"name":"chunk_size","value":"8"}, {"name":"head_count","value":"4"}, {"name":"auto_start","value":"n"}, {"name":"auto_advance","value":"y"}, {"name":"auto_restart","value":"n"}]});
+      }
+      if (msg.msg == 'streamList') {
+        return _globalWvLinewise({"type":"streamList","streams":["f", "7", "o"]});
+      }
+      if ((msg.msg == 'streamContinue') || (msg.msg == 'streamStart')) {
+        if (msg.name != "f") {
+          throw new Error("Can only pretend with stream 'f'");
+        }
+        if (!send.detailsSent) {
+          _globalWvLinewise({"type":"details","name":"f","details":{"restartable":true,"rewindable":false}});
+          _globalWvLinewise({"type":"line","name":"f","data":"{\"cmd\":\"define_fields\",\"fields\":[{\"name\":\"first\",\"data_type\":\"string\"},{\"name\":\"age\",\"data_type\":\"int\"}],\"options\":[{\"reset\":true}]}"});
+          send.detailsSent = true;
+        }
+        let intrv = setInterval(
+          () => {
+            let line = streamConfig.stream.lineCount % 2 ?
+              {"type":"line","name":"f","data":"{\"cmd\":\"add_line\",\"fields\":[{\"name\":\"first\",\"value\":\"matt\",\"data_type\":\"string\"},{\"name\":\"dob\",\"value\":1980,\"data_type\":\"date\"}]}"} :
+              {"type":"line","name":"f","data":"{\"cmd\":\"add_line\",\"fields\":[{\"name\":\"first\",\"value\":\"matt\",\"data_type\":\"string\"},{\"name\":\"age\",\"value\":42,\"data_type\":\"int\"}]}"};
+            _globalWvLinewise(line);
+            if ((streamConfig.stream.lineCount % getChunkSize(streamConfig)) == 0) {
+              clearInterval(intrv);
+              _globalWvLinewise({"type": (streamConfig.stream.lineCount == 24 ? "finished" : "paused") ,"name":"f"});
+            }
+          },
+          200
+        );
+      }
+    }
+
+    // This is where messages from WV Linewise are received in the Web View.
+    function _globalWvLinewise(msg) {
+      // console.log(">> ", JSON.stringify(msg));
+
+      if (msg.type == "params") {
+        streamConfig.params = msg.params;
+        // disp("PARAMS: " + JSON.stringify({ getChunkSize: getChunkSize(streamConfig), getAutoAdvance: getAutoAdvance(streamConfig), getAutoRestart: getAutoRestart(streamConfig), getAutoStart: getAutoStart(streamConfig) }));
+        refreshButton(streamConfig);
+        if (getAutoStart(streamConfig)) {
+          continueClick();
+        }
+        return;
+      }
+
+      streamConfig.stream.running = true;
+      streamConfig.stream.finished = false;
+      if (msg.type == "streamList") {
+        streamName = msg.streams.reduce(
+          (acc, strm) => acc ? acc : strm,
+          ""
+        );
+        if (streamName == "") { throw new Error("No steam found to start"); }
+        send({ msg: "streamStart", name: streamName, count: getChunkSize(streamConfig) });
+      }
+
+      if (msg.type == "details") {
+        streamConfig.stream = { ...streamConfig.stream, name: msg.name, finished: false, ...msg.details };
+      }
+
+      if (msg.type == "paused") {
+        streamConfig.stream.running = false;
+        if (getAutoAdvance(streamConfig)) {
+          continueClick();
+        }
+        // TODO: Auto Restart
+        // setTimeout(function() {
+        //   send({ "msg": "streamContinue", "name": streamConfig.name });
+        // }, 1000);
+      }
+
+      if (msg.type == "finished") {
+        streamConfig.stream.finished = true;
+        streamConfig.stream.running = false;
+        if (getAutoRestart(streamConfig)) {
+          continueClick();
+        }
+        // send({ msg: "streamStart", name: streamConfig.streamName, count: getChunkSize(streamConfig) });
+      }
+
+      // disp(">> " + JSON.stringify(msg));
+
+      if (msg.type == "line") {
+        handleLine(handler, msg.data)
+      }
+      refreshButton(streamConfig);
+    }
+
+    function continueClick() {
+      if (streamConfig.stream.lineCount == 0) {
+        return send({"msg":"streamList"});
+      }
+      if (streamConfig.stream.finished) {
+        send({ "msg": "streamStart", "name": streamConfig.stream.name, count: getChunkSize(streamConfig)  })
+      } else {
+        send({ "msg": "streamContinue", "name": streamConfig.stream.name })
+      }
+    }
+    document.getElementById("btn").addEventListener("click", continueClick);
+
+    window.onerror = function(e) { disp("EE ", e && e.msg || e) };
+
+    send({"msg":"params"});
+
+  </script>
+</html>
+

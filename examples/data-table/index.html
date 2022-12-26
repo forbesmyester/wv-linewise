@@ -1,0 +1,307 @@
+<html>
+  <head>
+    <style>
+      td.null { text-align: center }
+    </style>
+  </head>
+  <body>
+    <table id="table">
+      <thead id="thead">
+      </thead>
+      <tbody id="tbody">
+      </tbody>
+    </table>
+  </body>
+
+  <script>
+
+    let config = {
+      params: {},
+      lineNum: 0,
+      running: false,
+      streamName: "",
+      fields: [],
+    }
+
+    // Display a message so ther user can see it
+    function disp(s) {
+      const el = document.createElement("div");
+      el.innerText = s
+      document.querySelector("body").appendChild(el);
+    }
+
+    function errorJsonParseLine(dataLine) {
+      console.error("errorJsonParseLine", dataLine);
+    }
+    function errorUnrecognizedDataCmd(data) {
+      console.error("errorUnrecognizedDataCmd", data);
+    }
+
+    function htmlAppendChildElements(el, children, clear) {
+      if (clear) {
+        el.html = '';
+      }
+      return children.reduce(
+        (el, inr) => {
+          el.append(inr);
+          return el;
+        },
+        el
+      );
+    }
+
+    function htmlCreateElement(tagName, attributes, inner) {
+      let el = document.createElement(tagName);
+      el = Object.entries(attributes).reduce(
+        (el, [attrK, attrV]) => {
+          el.setAttribute(attrK, attrV);
+          return el;
+        },
+        el
+      );
+      return htmlAppendChildElements(el, inner);
+    }
+
+    class Draw {
+
+      defineFields(configFields) {
+        let thead = document.getElementById("thead");
+        let tbody = document.getElementById("tbody");
+        thead.innerText = '';
+        tbody.innerText = '';
+        let ths = configFields.map(({name, dataType}) => {
+          return htmlCreateElement("th", {}, [name]);
+        });
+        htmlAppendChildElements(thead, [htmlCreateElement("tr", {}, ths)], true);
+      }
+
+      addLine(rowData) {
+        document.getElementById("tbody").append(htmlCreateElement(
+          "tr",
+          {},
+          rowData.map(
+            (rd) => htmlCreateElement(
+              "td",
+              {
+                "class": [].concat(rd.isNull ? ["null"] : []).join(" ")
+              },
+              [
+                rd.isNull ?
+                  "‧" :
+                  rd.dataType == 'json' ?
+                    JSON.stringify(rd.value) :
+                    rd.value
+              ]
+            )
+          )
+        ));
+      }
+
+    }
+
+    class Data {
+
+      constructor() {
+        this.fields = [];
+      }
+
+      defineFields(data) {
+        this.fields = data.fields.map(
+          ({name, data_type}) => ({name, dataType: data_type})
+        );
+        return this.fields;
+      }
+
+      addLine(data) {
+
+        function pushIntoOverflow(acc, k, v) {
+          acc[""].isNull = false;
+          if (!acc[""].hasOwnProperty("data")) {
+            acc[""].data = {};
+          }
+          acc[""].data[k] = v;
+          return acc;
+        }
+
+        function getIndexesForField(dataMap, dataType, name) {
+          return dataMap[dataType + "/" + name] || [];
+        }
+
+        function buildDataMap(configFields) {
+          return configFields.reduce(
+            (acc, { name, dataType }, index) => {
+              if (!acc.hasOwnProperty(dataType + "/" + name)) {
+                acc[dataType + "/" + name] = [];
+              }
+              acc[dataType + "/" + name].push(index);
+              return acc;
+            },
+            {}
+          );
+        }
+
+        function getDataRowReducer(dataMap) {
+          return function(acc, dataField) {
+            let indexes = getIndexesForField(dataMap, dataField["data_type"], dataField["name"]);
+            for (var i = 0; i < indexes.length ; i++) {
+              if (acc[i].isNull) {
+                acc[i].isNull = false;
+                acc[i].value = dataField["value"];
+                return acc;
+              }
+            }
+            acc[acc.length - 1].isNull = false;
+            if (!acc[acc.length - 1].value.hasOwnProperty(dataField["name"])) {
+              acc[acc.length - 1].value[dataField["name"]] = [];
+            }
+            acc[acc.length - 1].value[dataField["name"]].push({ value: dataField["value"], type: dataField["data_type"] });
+            return acc;
+          }
+        }
+
+        let dataMap = buildDataMap(this.fields);
+
+        let initialRowData = this.fields.map(
+          ({ name, dataType }) => {
+            return { isNull: true, dataType };
+          })
+          .concat([{ isNull: true, value: {}, dataType: "json" }]);
+
+        return data.fields
+          .reduce(
+            getDataRowReducer(dataMap),
+            initialRowData
+          );
+
+      }
+    }
+
+    class Handler {
+
+      constructor (data, draw) {
+        this.data = data;
+        this.draw = draw;
+        this.config = {};
+      }
+
+      addLine(line) {
+        draw.addLine(data.addLine(line));
+      }
+
+      defineFields(line) {
+        function addJsonOverflow(configFields) {
+          return [...configFields, {name: "", dataType: "json"}];
+        }
+        this.config = this.data.defineFields(line);
+        this.draw.defineFields(addJsonOverflow(this.config));
+      }
+
+    }
+
+    let draw = new Draw();
+    let data = new Data();
+    let handler = new Handler(data, draw);
+
+    function handleLine(handler, dataLine) {
+      let input = {};
+      try {
+        input = JSON.parse(dataLine);
+      }
+      catch (e) {
+        return errorJsonParseLine(dataLine);
+      }
+      if (["add_line", "define_fields"].indexOf(input.cmd) < 0) {
+        return errorUnrecognizedDataCmd(dataLine);
+      }
+      let handlingFunctions = {
+        add_line: handler.addLine,
+        define_fields: handler.defineFields,
+      };
+      handlingFunctions[input.cmd].call(handler, input);
+    }
+
+    // Send a message from the Web-View to WV Linewise
+    function send(msg) {
+      let j = JSON.stringify(msg)
+      disp("< " + j);
+      if (window?.webkit?.messageHandlers?.external?.postMessage) {
+        return window.webkit.messageHandlers.external.postMessage(j);
+      }
+      if (msg.msg == 'params') {
+        return _globalWvLinewise({"type":"params","params":[{"name":"param","value":"ppp"}]});
+      }
+      if (msg.msg == 'streamList') {
+        return _globalWvLinewise({"type":"streamList","streams":["f", "7", "o"]});
+      }
+      if (msg.msg == 'streamContinue') {
+        msg.msg = 'streamStart';
+        msg.count = 8;
+      }
+      if (msg.msg == 'streamStart') {
+        if (msg.name != "f") {
+          throw new Error("Can only pretend with stream 'f'");
+        }
+        if (!send.detailsSent) {
+          _globalWvLinewise({"type":"details","name":"f","details":{"rewindable":false}});
+          send.detailsSent = true;
+        }
+        let lineNum = 0;
+        let intrv = setInterval(
+          () => {
+            let line = lineNum == 0 ?
+              {"type":"line","name":"f","data":"{\"cmd\":\"define_fields\",\"fields\":[{\"name\":\"first\",\"data_type\":\"string\"},{\"name\":\"age\",\"data_type\":\"int\"}],\"options\":[{\"reset\":true}]}"} :
+              {"type":"line","name":"f","data":"{\"cmd\":\"add_line\",\"fields\":[{\"name\":\"first\",\"value\":\"matt\",\"data_type\":\"string\"},{\"name\":\"dob\",\"value\":1980,\"data_type\":\"date\"}]}"};
+            _globalWvLinewise(line);
+            if (++lineNum >= msg.count) {
+              clearInterval(intrv);
+              _globalWvLinewise({"type":"paused","name":"f"});
+            }
+          },
+          1000
+        );
+      }
+    }
+
+    const getLineCount = (config) => config.lineCount ? config.lineCount : 8;
+
+    // This is where messages from WV Linewise are received in the Web View.
+    function _globalWvLinewise(msg) {
+
+      if (msg.type == "params") {
+        config.params = msg.params;
+        send({"msg":"streamList"});
+      }
+
+      if (msg.type == "streamList") {
+        config.streamName = msg.streams.reduce(
+          (acc, strm) => acc ? acc : strm,
+          ""
+        );
+        send({ msg: "streamStart", name: config.streamName, count: getLineCount(config) });
+      }
+
+      if (msg.type == "paused") {
+        setTimeout(function() {
+          send({ "msg": "streamContinue", "name" :msg.name });
+        }, 1000);
+      }
+
+      if (msg.type == "finished") {
+        // send({ msg: "streamStart", name: config.streamName, count: getLineCount(config) });
+      }
+
+      disp("> " + JSON.stringify(msg));
+
+      if (msg.type == "line") {
+        handleLine(handler, msg.data)
+      }
+
+    }
+
+    window.onerror = function(e) { disp(e && e.msg || e) };
+
+    send({"msg":"params"});
+
+  </script>
+</html>
+

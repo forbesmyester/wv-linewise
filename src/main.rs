@@ -90,7 +90,7 @@ struct MessageError { error: String }
 
 
 #[derive(Debug, Serialize)]
-struct StreamDetailsDetails { rewindable: bool }
+struct StreamDetailsDetails { rewindable: bool, restartable: bool }
 
 
 #[derive(Debug)]
@@ -254,6 +254,18 @@ enum CommChannel {
     Pending(PendingCommChannel),
 }
 
+
+impl CommChannel {
+    fn get_filename(&self) -> Option<&str> {
+        match self {
+            CommChannel::Finished => None,
+            CommChannel::Started(StartedCommChannel { original_filename, ..}) => Some(original_filename),
+            CommChannel::Pending(PendingCommChannel { filename, ..}) => Some(filename),
+        }
+    }
+}
+
+
 type Channels = HashMap<String, CommChannel>;
 
 #[derive(Debug)]
@@ -354,6 +366,14 @@ fn get_reader(name: &str) -> std::io::Result<Box<dyn Read>> {
     }
 }
 
+
+fn stream_restartable(opts_restartable: bool, original_filename: &str) -> bool {
+    match (opts_restartable, original_filename) {
+        (true, "-") => false,
+        (true, _) => true,
+        (_, _) => false,
+    }
+}
 
 
 fn stream(filename: String, pause_at: u64) -> StartedCommChannel {
@@ -562,7 +582,7 @@ fn start_comm_channel(msg: &StartingMessage, channels: &mut Channels) -> bool {
                         );
                         true
                     },
-                    CommChannel::Started(_scc) => false,
+                    CommChannel::Started(scc) => true,
                     CommChannel::Finished => false,
                 }
             }).unwrap_or(false)
@@ -703,7 +723,11 @@ fn get_stream_to_manage(msg_str: &str, opts: &Opts, mut channels: &mut Channels)
                                 response: Option::Some(Response::StreamDetails(StreamDetails {
                                     name: request.name.to_string(),
                                     details: StreamDetailsDetails {
-                                        rewindable: false
+                                        rewindable: false,
+                                        restartable: stream_restartable(
+                                            opts.restartable,
+                                            channels.get(&request.name).map(|c| c.get_filename()).flatten().unwrap_or("")
+                                        )
                                     }
                                 })),
                                 request: Option::Some(msg),
@@ -890,15 +914,12 @@ fn main() {
                         Some(CommChannel::Started(c)) => {
                             let original_filename = c.original_filename.to_owned();
                             let manage_stream_resp = manage_stream(&mut send, c, &name);
-                            match (manage_stream_resp.finished, opts.restartable, original_filename.as_ref()) {
-                                (true, _, "-") => {
+                            match (manage_stream_resp.finished, stream_restartable(opts.restartable, original_filename.as_ref())) {
+                                (true, false) => {
                                     channels.insert(name.to_owned(), CommChannel::Finished );
                                 }
-                                (true, true, _) => {
+                                (true, true) => {
                                     channels.insert(name.to_owned(), CommChannel::Pending(PendingCommChannel { filename: original_filename }) );
-                                }
-                                (true, false, _) => {
-                                    channels.insert(name.to_owned(), CommChannel::Finished );
                                 }
                                 _ => {},
                             }
